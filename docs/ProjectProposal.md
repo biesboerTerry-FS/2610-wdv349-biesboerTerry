@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # [Lindbergh Ultimate Frisbee ]
 
 ## Application Definition Statement
@@ -7,6 +8,17 @@ The Lindbergh Ultimate Frisbee application is a centralized, unified communicati
 ## Target Market
 
 Primary: The Lindbergh Ultimate Frisbee application/site is a centralized, unified communication and management hub designed exclusively for a highschool sports team. It will serve as a single source of information connecting players, parents, and coaches to streamline schedule tracking, roster management, and critical team announcements. By replacing fragmented text chains and lost emails with a clean, role-based dashboard, the platform ensures everyone shows up to the right field, at the right time, with the right jersey.
+=======
+# Lindbergh Ultimate Frisbee
+
+## Application Definition Statement
+
+The Lindbergh Ultimate Frisbee application is a centralized, unified communication and management hub designed exclusively for a high school sports team. It will serve as a single source of information connecting players, parents, and coaches to streamline schedule tracking, roster management, and critical team announcements. By replacing fragmented text chains and lost emails with a clean, role-based dashboard, the platform ensures everyone shows up to the right field, at the right time, with the right jersey.
+
+## Target Market
+
+Primary: The Lindbergh Ultimate Frisbee application/site is a centralized, unified communication and management hub designed exclusively for a high school sports team. It will serve as a single source of information connecting players, parents, and coaches to streamline schedule tracking, roster management, and critical team announcements. By replacing fragmented text chains and lost emails with a clean, role-based dashboard, the platform ensures everyone shows up to the right field, at the right time, with the right jersey.
+>>>>>>> 41aaf187d4b3edbed6e82ded2a3c495c395d59cc
 
 Secondary: According to youth sports participation data, managing logistics is one of the top stressors for volunteer coaches and parents. While generic communication tools exist, they often suffer from feature bloat or lack of sports-specific scheduling tools.
 
@@ -22,7 +34,11 @@ Coaches (Ages 25-50): Faculty or volunteer leaders who need efficiant broadcast 
 
 Profile 1: The Busy Parent (Sarah)
 
+<<<<<<< HEAD
 Sarh is a 42 year old working professional with two teenagers. She relies heavily on her digital calendar to keep her life afloat. Her biggest frustration is digging through weeks of messy email chains or other specifics apps to find the address for an away tournament or figuring out if practice was cancelled. She needs a clean interface that immediately shows the "When", "Where", and "What to bring"
+=======
+Sarh is a 42 year old working professional with two teenagers. She relies heavily on her digital calendar to keep her life afloat. Her biggest frustration is digging through weeks of messy email chains or other specific apps to find the address for an away tournament or figuring out if practice was cancelled. She needs a clean interface that immediately shows the "When", "Where", and "What to bring"
+>>>>>>> 41aaf187d4b3edbed6e82ded2a3c495c395d59cc
 
 Profile 2: The Player(Mark)
 
@@ -34,7 +50,11 @@ High school sports teams currently rely on multiple apps, email chains, and word
 
 ## Pain Points
 
+<<<<<<< HEAD
 * Information fragmentation: Critical updates are spread across email, text, and paper, making it difficult to find a single sourcec of truth.
+=======
+* Information fragmentation: Critical updates are spread across email, text, and paper, making it difficult to find a single source of truth.
+>>>>>>> 41aaf187d4b3edbed6e82ded2a3c495c395d59cc
 
 * Last-Minute Changes: When weather or field availability changes, cascading the update to all parents and players simultaneously is slow and unreliable.
 
@@ -48,7 +68,11 @@ The custom-built MERN stack application provides a tailored, ad-free environment
 
 Direct Competition: Team-management applications like TeamSnap or Band.
 
+<<<<<<< HEAD
 * Difference: While highly functional, these apps are heavily monetized, often placing ads across the free tiers or locking essential features behind expensive nonthly subscriptions. These are often overly generalized for any type of group.
+=======
+* Difference: While highly functional, these apps are heavily monetized, often placing ads across the free tiers or locking essential features behind expensive monthly subscriptions. These are often overly generalized for any type of group.
+>>>>>>> 41aaf187d4b3edbed6e82ded2a3c495c395d59cc
 
 Indirect Competition: Group messaging apps like Remind, WhatsApp, or GroupMe.
 
@@ -66,7 +90,11 @@ Indirect Competition: Group messaging apps like Remind, WhatsApp, or GroupMe.
 
 ## Integrations
 
+<<<<<<< HEAD
 * Internal RESTful API: I will build a custom backend API using Node.js and Express to serve data from the MongoDb database to the React front-end securely.
+=======
+* Internal RESTful API: I will build a custom backend API using Node.js and Express to serve data from the MongoDB database to the React front-end securely.
+>>>>>>> 41aaf187d4b3edbed6e82ded2a3c495c395d59cc
 
 * Google Maps API: To be used within the Team Calendar. When a coach inputs an address for the game, the frontend will render an interactive map and routing options for parents and players, directly solving the pain point of navigating to unfamiliar fields.
 <https://cloud.google.com/terms/overview>
