@@ -2,7 +2,7 @@
 
 * **Research Notes - Milestone #1**
 * **Terry Biesboer**
-* **August 10,2026**
+* **September 30,2026**
 
 ## Topic - React Redux Toolkit
 
