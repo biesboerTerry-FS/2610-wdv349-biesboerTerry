@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #1c6a37;
+}
+
+@layer base {
+	:root {
+		--primary-green: #1c6a37;
+	}
+}
+
+.gradient-top-25 {
+	background: linear-gradient(to bottom, black, transparent);
+	background-size: 100% 75%;
+	background-repeat: no-repeat;
+}
