@@ -4,7 +4,7 @@
 
 
 # Project & Portfolio
-### First & Last Name 
+## First & Last Name 
 
 
 ![Degree Program](https://img.shields.io/badge/degree-web%20development-blue.svg)&nbsp; 
