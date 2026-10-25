@@ -33,7 +33,9 @@ const Swag = () => {
 
 				{/* Action Button */}
 				<a
-					href="#"
+					href="https://altjerseys.com/team/flyers/"
+					target="_blank"
+					rel="noopener noreferrer"
 					className="inline-block px-6 py-3 mt-8 text-lg font-bold transition-all rounded-full shadow-2xl bg-lu-yellow text-lu-green hover:scale-105 hover:bg-white sm:mt-12 sm:px-12 sm:py-4 sm:text-2xl"
 				>
 					Visit Team Store
