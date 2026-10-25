@@ -1,9 +1,9 @@
-// eslint-disable-next-line no-unused-vars
 import React from "react";
-import rules from "../assets/rules.png";
+import rules from "../assets/ultimateRules.png";
 import circle from "../assets/circle.png";
 
 const Rules = () => {
+	// Common style for section wrappers to ensure they are centered but text is left-aligned
 	const sectionWrapper =
 		"w-full max-w-4xl px-6 mb-16 flex flex-col items-start";
 

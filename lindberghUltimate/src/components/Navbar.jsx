@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import ultimateLogoTransparent from "../assets/ultimateLogoTransparent.png";
 
@@ -53,7 +51,7 @@ const Navbar = () => {
 				</NavLink>
 				<span className="inline-block ml-0.5 text-[0.6em] opacity-80 pointer-events-none">▼</span>
 				<div className="absolute top-full left-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30">
-					<div className="bg-[#1c6a37] border border-[#fbcc00] rounded-lg shadow-xl py-2 min-w-45">
+					<div className="bg-[#1c6a37] border border-[#fbcc00] rounded-lg shadow-xl py-2 min-w-[180px]">
 						<NavLink
 							to="/registration"
 							className={({ isActive }) =>
@@ -98,7 +96,7 @@ const Navbar = () => {
 				</span>
 				<span className="inline-block ml-0.5 text-[0.6em] opacity-80">▼</span>
 				<div className="absolute top-full left-0 pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-30">
-					<div className="bg-[#1c6a37] border border-[#fbcc00] rounded-lg shadow-xl py-2 min-w-45">
+					<div className="bg-[#1c6a37] border border-[#fbcc00] rounded-lg shadow-xl py-2 min-w-[180px]">
 						<NavLink
 							to="/families"
 							className={({ isActive }) =>
