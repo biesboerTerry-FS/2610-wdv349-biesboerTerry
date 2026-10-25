@@ -9,5 +9,3 @@ Be sure to explain your reasoning for any updates or alterations to file structu
 ![Degree Program](https://img.shields.io/badge/degree-web%20development-blue.svg)&nbsp;
 
 [Log](../docs/log.md)
-
-<br>

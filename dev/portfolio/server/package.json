@@ -1,0 +1,41 @@
+{
+  "name": "lindbergh-ultimate-api",
+  "private": true,
+  "version": "0.1.0",
+  "description": "MongoDB-backed API for the Lindbergh Ultimate website",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/index.js",
+    "start": "node src/index.js",
+    "seed": "node src/seed/seed.js",
+    "seed:admin": "node src/seed/admin.js",
+    "seed:clear": "node src/seed/clear.js",
+    "seed:demo": "SEED_DEMO_DATA=true node src/seed/seed.js",
+    "seed:reset": "npm run seed:clear && npm run seed",
+    "lint": "eslint .",
+    "check": "node --check src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "compression": "^1.8.1",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.0.0",
+    "morgan": "^1.10.1",
+    "nodemon": "^3.1.14",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.39.5",
+    "globals": "^16.5.0"
+  }
+}
