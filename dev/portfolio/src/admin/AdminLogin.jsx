@@ -53,7 +53,7 @@ export default function AdminLogin() {
 		>
 			<div className="w-full max-w-md">
 				<div className="mb-8 text-center">
-					<span className="mx-auto mb-4 flex w-48 items-center justify-center rounded-2xl bg-lu-cream p-3 shadow-lg">
+					<span className="mx-auto mb-4 flex w-48 items-center justify-center rounded-2xl bg-lu-green p-3 shadow-lg">
 						<img
 							src={ultimateLogoTransparent}
 							alt="Lindbergh Ultimate"
