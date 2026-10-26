@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 
 const MEMBERS = [
@@ -22,7 +23,7 @@ const BoosterClub = () => {
 			style={{ fontFamily: "'Graduate', serif" }}
 		>
 			{/* Hero */}
-			<section className="relative w-full h-[320px] md:h-[400px] bg-[#0d4a28] flex items-center justify-center overflow-hidden">
+			<section className="relative w-full h-80 md:h-100 bg-[#0d4a28] flex items-center justify-center overflow-hidden">
 				<div
 					className="absolute inset-0 bg-cover bg-center opacity-60"
 					style={{

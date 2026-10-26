@@ -1,13 +1,14 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import Navbar from "./Navbar";
 
 const Header = () => {
 	const backgroundUrl =
-		"https://lh7-rt.googleusercontent.com/sitesz/AClOY7pMS735rhSUcYnsr4OoxLaHZ1IAPCimjLhI3EtaMvUAtiVTwbNKFuKNXylIC-xQMqcPlFtOEED1DwGct08suTgM_B0VXVb1UvspwlskuM4gQW8EYPWFm1EKPJz0hhaHXYX_jOpPDDMm7M85D4ttm383jIZ1zK94fF4ol-RjiS4bZdn0kt8?key=uw4YL8q30IN4NlmlrYDz4Q";
+		"https://sites.google.com/u/0/sitesv-images-rt/AMxu72uKV1vXFHXZAiwxLzgLWGtJvb5l4i6ekg0kDiUyN-U_Cw2LSfNihaUTK8wIDe9n7Uz6rApU8kAXZq52mCVHAmtoJTskOE9QDxjfn1DrjAHTQ04GhloibrnVN0oFz20UsQwuRQb-iSG_7ohpUYZ9KPMeH5AiBQ0m6-ZnjSjUJPhsP96icIawy2sG6FfRe_o=w16383&h=16383";
 
 	return (
 		<header
-			className="relative w-full h-[650px] bg-no-repeat bg-center bg-cover"
+			className="relative w-full h-162.5 bg-no-repeat bg-center bg-cover"
 			style={{
 				backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%), url(${backgroundUrl})`,
 				backgroundSize: "100% auto",

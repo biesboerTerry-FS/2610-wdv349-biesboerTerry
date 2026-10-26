@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 
 // Event: { time: string, title: string, type: "gxrls" | "boys" | "general" }
@@ -288,7 +289,7 @@ const Calendar2026 = () => {
 				{/* Calendar list */}
 				<div className="space-y-10">
 					{filtered.map(([date, events]) => {
-						const { month, day, weekday, full } = formatDateLabel(date);
+						const { full } = formatDateLabel(date);
 						if (events.length === 0) return null;
 						return (
 							<article

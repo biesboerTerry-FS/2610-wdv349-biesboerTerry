@@ -1,15 +1,14 @@
-import React from "react";
-import whatIs from "../assets/whatIs.png";
+// import whatIs from "../assets/whatIs.png";
 
 const Welcome = () => {
 	return (
-		<div className="flex w-full min-h-[400px] bg-[#1c6a37] py-16 my-12">
+		<div className="flex w-full min-h-100px bg-[#1c6a37] py-16 my-12">
 			<div className="w-1/2 flex justify-center items-center">
-				<img
+				{/* <img
 					src={whatIs}
 					alt="What is Ultimate"
 					className="w-[70%] h-auto object-contain drop-shadow-[0_0_20px_#fbcc00]"
-				/>
+				/> */}
 			</div>
 
 			{/* Right Side: Text Container */}

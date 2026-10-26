@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import swag from "../assets/swag.png";
 
@@ -8,14 +9,14 @@ const Swag = () => {
 			style={{ fontFamily: "'Graduate', serif" }}
 		>
 			{/* Left 2/3: Content Section */}
-			<div className="w-full md:w-2/3 flex flex-col items-start text-left">
+			<div className="flex flex-col items-start w-full text-left md:w-2/3">
 				{/* Main Header */}
 				<h2 className="text-3xl md:text-5xl font-bold text-[#fbcc00] mb-6 uppercase tracking-widest">
 					Rep our Swag by Visiting Our Team Store
 				</h2>
 
 				{/* Description Text */}
-				<p className="text-lg md:text-2xl leading-relaxed max-w-3xl opacity-90 mb-10 font-sans">
+				<p className="max-w-3xl mb-10 font-sans text-lg leading-relaxed md:text-2xl opacity-90">
 					The Lindbergh Ultimate Team Store is open year-round for
 					purchasing general swag such as hoodies, joggers, hats,
 					flags, and more.
@@ -26,7 +27,7 @@ const Swag = () => {
 					<p className="text-[#fbcc00] font-bold mb-2 uppercase text-sm tracking-tighter">
 						Important: Uniform Kits
 					</p>
-					<p className="text-base md:text-xl leading-snug font-sans">
+					<p className="font-sans text-base leading-snug md:text-xl">
 						Uniform Kit (jerseys & shorts) ordering is done once a
 						year—generally the last two weeks of February.
 					</p>
@@ -42,7 +43,7 @@ const Swag = () => {
 			</div>
 
 			{/* Right 1/3: Image Section */}
-			<div className="w-full md:w-1/3 flex justify-center items-center mt-12 md:mt-0">
+			<div className="flex items-center justify-center w-full mt-12 md:w-1/3 md:mt-0">
 				<img
 					src={swag}
 					alt="Lindbergh Swag"

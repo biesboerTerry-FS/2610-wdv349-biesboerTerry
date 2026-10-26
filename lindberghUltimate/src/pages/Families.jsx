@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -76,7 +77,7 @@ const Families = () => {
 			style={{ fontFamily: "'Graduate', serif" }}
 		>
 			{/* Hero */}
-			<section className="relative w-full h-[280px] md:h-[360px] flex items-center justify-center overflow-hidden">
+			<section className="relative w-full h-70 md:h-90 flex items-center justify-center overflow-hidden">
 				<div
 					className="absolute inset-0 bg-cover bg-center opacity-80"
 					style={{

@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import React from "react";
+import { useState } from "react";
 
 const LindberghRegistrationForm = () => {
 	const [formData, setFormData] = useState({

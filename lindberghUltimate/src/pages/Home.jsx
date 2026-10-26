@@ -14,6 +14,7 @@ const Home = () => {
 			<Rules />
 			<Highlights />
 			<Swag />
+			<Footer />
 		</>
 	);
 };
