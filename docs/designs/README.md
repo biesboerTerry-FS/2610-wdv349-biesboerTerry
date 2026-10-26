@@ -6,7 +6,7 @@ This folder is for structure and design work. Use this README as a log of update
 
 Add links to your design work here.
 
-* **[Style Tile](https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/blob/style-tile/docs/designs/Style%20Tile.png)**
+* **[Style Tile](./Style%20Tile.png)**
 * **[Design](https://www.figma.com/site/TOze5vN2cIgcQ1yQXx25GB/Lindbergh-Ultimate?node-id=0-1&t=b5QKfFgOkyA7nLAw-1)**  
 
 ## Log ...🚀

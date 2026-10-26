@@ -24,7 +24,7 @@ const Footer = () => {
 						<li>
 							<a
 								className="inline-flex items-center gap-2 font-medium transition-colors hover:text-green-300"
-								href="mailto:lindberghultimate@gmail.com"
+								href="mailto:contact@example.com"
 							>
 								<FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
 								Email us

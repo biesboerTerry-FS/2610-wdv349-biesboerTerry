@@ -6,7 +6,7 @@ const SPORTSYOU_URL = "https://www.sportsyou.com";
 const APP_STORE_URL = "https://apps.apple.com/us/app/sportsyou/id1186906455";
 const GOOGLE_PLAY_URL =
 	"https://play.google.com/store/apps/details?id=com.sportsyou.sportsYou";
-const ACCESS_CODE = "AZJQ-PPDT";
+const ACCESS_CODE = "SAMPLE-CODE";
 
 const SportsYou = () => {
 	return (

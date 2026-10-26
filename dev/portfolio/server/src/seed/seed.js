@@ -330,10 +330,10 @@ async function seed() {
 	}
 
 	const teamByCoachEmail = {
-		"gabriellalavezzi@lindberghschools.ws": [boysTeam._id],
-		"goodric3@gmail.com": [boysTeam._id],
-		"kristinagu@lindberghschools.ws": [gxrlsTeam._id],
-		"serioustob@gmail.com": [gxrlsTeam._id],
+		"morgan.blake@example.com": [boysTeam._id],
+		"casey.brooks@example.com": [boysTeam._id],
+		"taylor.quinn@example.com": [gxrlsTeam._id],
+		"jordan.ellis@example.com": [gxrlsTeam._id],
 	};
 	for (const coach of savedCoaches) {
 		coach.teams = teamByCoachEmail[coach.email] || [];
@@ -460,7 +460,7 @@ async function seed() {
 
 	// Disable the legacy demo coach account if it was created by an earlier seed.
 	const legacyCoach = await User.updateOne(
-		{ email: "coach@lindberghultimate.com", role: "coach" },
+		{ email: "coach@example.com", role: "coach" },
 		{ isActive: false },
 	);
 	if (legacyCoach.modifiedCount) {

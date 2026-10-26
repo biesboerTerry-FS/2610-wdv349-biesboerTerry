@@ -17,7 +17,7 @@ Panel uses the authenticated endpoints under `/api/admin`.
 | Database | `lindbergh_ultimate` (Atlas or local MongoDB) |
 | Frontend dev origins | `http://localhost:5173`, `http://localhost:5174` (+ `127.0.0.1` variants) |
 | Admin login | `/admin/login` on the frontend |
-| Seed admin | `admin@lindberghultimate.com` / `ChangeMe123!` |
+| Seed admin | `admin@example.com` / `ChangeMe123!` |
 
 Frontend setup and site overview: [`../README.md`](../README.md).
 
@@ -45,7 +45,7 @@ For local development, set
 `MONGODB_URI=mongodb://127.0.0.1:27017/lindbergh_ultimate` instead.
 
 The single admin account comes from `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`
-in `.env` (default `admin@lindberghultimate.com` / `ChangeMe123!`). Change the
+in `.env` (default `admin@example.com` / `ChangeMe123!`). Change the
 password and `JWT_SECRET` before deploying. `npm run seed:admin` creates or
 refreshes just that account without touching site content.
 
@@ -147,7 +147,7 @@ curl http://localhost:5050/api/health
 # Login and capture the token
 curl -s -X POST http://localhost:5050/api/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"admin@lindberghultimate.com","password":"ChangeMe123!"}'
+  -d '{"email":"admin@example.com","password":"ChangeMe123!"}'
 
 # Authenticated dashboard
 curl -H "Authorization: Bearer <token>" \
@@ -199,7 +199,7 @@ Admin endpoints use a JWT from `POST /api/auth/login`:
 ```bash
 curl -X POST http://localhost:5050/api/auth/login \
   -H 'Content-Type: application/json' \
-  -d '{"email":"admin@lindberghultimate.com","password":"ChangeMe123!"}'
+  -d '{"email":"admin@example.com","password":"ChangeMe123!"}'
 ```
 
 Send the returned token as `Authorization: Bearer <token>`.
@@ -453,3 +453,34 @@ database behavior.
   Checkout/webhooks) to create `Donation` records with `status: "completed"`.
 - Review `ScheduleEvent.recurrence`: it is stored but not expanded into
   individual occurrences; the seed data already expands recurring practices.
+
+## Vercel API deployment
+
+The API is configured as a Vercel serverless project. Its Express application
+is reused by [`src/serverless.js`](./src/serverless.js), while local development
+continues to use `src/index.js`.
+
+The current Vercel project is `fast-cyclone-ney3302`, deployed at
+<https://fast-cyclone-ney3302.tmp.now>. Add these variables in the Vercel
+project's **Settings > Environment Variables** for the **Production**
+environment:
+
+```env
+NODE_ENV=production
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>/lindbergh_ultimate
+MONGODB_DB_NAME=lindbergh_ultimate
+JWT_SECRET=<long-random-production-secret>
+SEED_ADMIN_EMAIL=<admin-email>
+SEED_ADMIN_PASSWORD=<strong-admin-password>
+CORS_ORIGINS=https://lindberghultimatefrisbee-terry-biesboers-projects.vercel.app
+```
+
+After adding the variables, redeploy the API and seed the administrator against
+the production database. Do not commit these values or place them in
+`.env.example`.
+
+The frontend uses `https://fast-cyclone-ney3302.tmp.now/api` as its production
+`VITE_API_URL`, and is currently deployed at
+<https://lindberghultimatefrisbee-terry-biesboers-projects.vercel.app>. If
+either Vercel project receives a custom domain later, update both values to use
+the production domains.

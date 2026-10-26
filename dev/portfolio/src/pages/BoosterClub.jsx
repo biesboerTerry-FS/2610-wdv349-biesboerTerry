@@ -1,55 +1,55 @@
 import React from "react";
 import circle from "../assets/circle.png";
 import blankAvatar from "../assets/blankAvatar.svg";
-import coachT from "../assets/coachT.jpg";
-import dave from "../assets/dave.png";
-import evie from "../assets/evie.jpg";
-import gabby from "../assets/gabby.jpg";
-import glenn from "../assets/glenn.jpg";
-import goods from "../assets/goods.jpg";
-import jeff from "../assets/jeff.jpg";
-import joe from "../assets/joe.jpg";
-import traci from "../assets/traci.jpg";
+import coachOne from "../assets/coach-1.jpg";
+import coachTwo from "../assets/coach-2.jpg";
+import coachThree from "../assets/coach-3.jpg";
+import coachFour from "../assets/coach-4.jpg";
+import boosterOne from "../assets/booster-1.jpg";
+import boosterTwo from "../assets/booster-2.jpg";
+import boosterThree from "../assets/booster-3.png";
+import boosterFour from "../assets/booster-4.jpg";
+import boosterFive from "../assets/booster-5.jpg";
 
 const MEMBERS = [
-	{ role: "President", name: "Joe Corcoran", email: "serioustob@gmail.com", image: joe, open: false },
-	{ role: "Secretary", name: "Traci Lichtenberg", email: "tlich1126@gmail.com", image: traci, open: false },
+	{ role: "President", name: "Jordan Ellis", email: "jordan.ellis@example.com", image: coachFour, open: false },
+	{ role: "Secretary", name: "Riley Hayes", email: "riley.hayes@example.com", image: boosterOne, open: false },
 	{
 		role: "Co-Treasurer",
-		name: "Chris Dollenmeyer",
-		email: "Christopherlee711@yahoo.com",
-		image: jeff,
+		name: "Avery Bennett",
+		email: "avery.bennett@example.com",
+		image: boosterTwo,
 		open: false,
 	},
 	{
 		role: "Co-Treasurer",
-		name: "Dave Valentine-Elam",
-		email: "dvalentineelam@gmail.com",
-		image: dave,
+		name: "Cameron Price",
+		email: "cameron.price@example.com",
+		image: boosterThree,
 		open: false,
 	},
-	{ role: "Vice-President", name: "Jeff Glotfelty", email: "jglotfelty@gmail.com", image: glenn, open: false },
-	{ role: "Alumni Rep", name: "Evie Reed", email: "18evelynreed@gmail.com", image: evie, open: false },
+	{ role: "Vice-President", name: "Reese Morgan", email: "reese.morgan@example.com", image: boosterFour, open: false },
+	{ role: "Alumni Rep", name: "Quinn Collins", email: "quinn.collins@example.com", image: boosterFive, open: false },
 	{ role: "Middle School Rep", open: true },
 	{
 		role: "Gxrls Team Coach",
-		name: 'Kristina "T" Gu',
-		email: "kristinagu@lindberghschools.ws",
-		image: coachT,
+		name: 'Taylor "T" Quinn',
+		email: "taylor.quinn@example.com",
+		image: coachOne,
 		open: false,
 	},
 	{
 		role: "Boys Team Coach",
-		name: "Gabby Lavezzi",
-		email: "gabriellalavezzi@lindberghschools.ws",
-		image: gabby,
+		name: "Morgan Blake",
+		email: "morgan.blake@example.com",
+		image: coachTwo,
 		open: false,
 	},
 	{
 		role: "Boys Team Coach",
-		name: "Loren Goodrich",
-		email: "goodric3@gmail.com",
-		image: goods,
+		name: "Casey Brooks",
+		email: "casey.brooks@example.com",
+		image: coachThree,
 		open: false,
 	},
 	{ role: "Gxrls Team Historian", open: true },
@@ -105,10 +105,10 @@ const BoosterClub = () => {
 					Questions? Want to Get Involved? Email Us!
 				</p>
 				<a
-					href="mailto:lindberghultimate@gmail.com"
+					href="mailto:contact@example.com"
 					className="inline-block px-4 py-2 text-sm font-bold break-all transition-all rounded-full bg-lu-yellow text-lu-green hover:bg-white sm:px-6 sm:text-lg"
 				>
-					lindberghultimate@gmail.com
+					contact@example.com
 				</a>
 			</section>
 

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 import wordCloud from "../assets/wordCloud.png";
+import spectatorGuide from "../assets/spectatorGuide.png";
 // Kept for reference: the interactive word cloud is replaced by the supplied image.
 // import WordCloud from "../components/WordCloud";
 
@@ -11,57 +12,57 @@ const TESTIMONIALS = [
 	{
 		quote:
 			"I have made long lasting friendships, gained so much confidence and leadership experience, and found a sport that I'm going to love for the rest of my life! It is such a cool community of people and an amazing environment to be a part of. Not just Lindbergh Ultimate, but the Saint Louis community in general is so welcoming to anyone who wants to try it out.",
-		attribution: "Teresa Dollenmeyer (Player, c.o. '25)",
+		attribution: "Nora Delgado (Player, c.o. '25)",
 	},
 	{
 		quote:
 			"Playing ultimate has shaped me into the leader I am today and has build my confidence both on and off the field. It opens you up to an incredibly supportive and kind community for all ages.",
-		attribution: "Karen Bose (Player, c.o. '25)",
+		attribution: "Maya Patel (Player, c.o. '25)",
 	},
 	{
 		quote:
 			"Ultimate's unique Spirit of the Game has given our son a place to play hard and have fun! The positive attitudes of players, coaches, and spectators truly makes this sport exceptional.",
-		attribution: "Traci Lichtenberg (Parent)",
+		attribution: "Riley Hayes (Parent)",
 	},
 	{
 		quote:
 			"As a parent, I couldn't be more impressed with the Lindbergh Flyers Ultimate Frisbee team. The coaching staff is outstanding—so knowledgeable about the sport and so dedicated to the players. I saw how they invested in my daughter not just as an athlete, but as a person—offering support in school, other interests, and personal growth. The team atmosphere is incredibly welcoming—every skill level is embraced, and it's just a joy to watch them grow both on and off the field. I'm so grateful for this amazing team!",
-		attribution: "Kristie Deeter (Parent)",
+		attribution: "Dana Whitfield (Parent)",
 	},
 	{
 		quote:
 			"Ultimate has given me a community and friends as well as really valuable leadership experience that I feel like I have learned a lot from. It's one the most welcoming sports out there, and a place where you can get some energy out in a really fun way!",
-		attribution: "Abby Deeter (Player, c.o. 2025)",
+		attribution: "Elena Whitfield (Player, c.o. 2025)",
 	},
 	{
 		quote:
 			"It's a low-risk sport compared to the ones at the high school that's not as popular but it's just as fun that can help you build athleticism whether you're getting into sports or on an off season of another sport.",
-		attribution: "Ivanka Huynh (Player, c.o. '25)",
+		attribution: "Sofia Tran (Player, c.o. '25)",
 	},
 	{
 		quote:
 			"Ultimate has helped my son build confidence, learn teamwork and is a fun outlet for his competitive spirit!",
-		attribution: "Monica Queathem (Parent)",
+		attribution: "Priya Nair (Parent)",
 	},
 	{
 		quote:
 			"Ultimate gave my son a great way to stay active, introduced him to a new sport, and helped him make new friends.",
-		attribution: "Carrie Love (Parent)",
+		attribution: "Erin Foster (Parent)",
 	},
 	{
 		quote:
 			"We've enjoyed the ultimate frisbee program at Truman. It's well organized, and the coaches are accepting of all skill levels, so it helps the kids build confidence while having fun.",
-		attribution: "Trevor MacDougall (Parent)",
+		attribution: "Marcus Reed (Parent)",
 	},
 	{
 		quote:
 			"Ultimate has been a very positive experience for my son's physical and social health.",
-		attribution: "Rachel Charney (Parent)",
+		attribution: "Hannah Cole (Parent)",
 	},
 	{
 		quote:
 			"The team camaraderie is incredible! As a first time player, my daughter felt a part of the team from day one! Thank you Coach T, I know you have created this wonderful atmosphere! It's so easy to play hard when you're having so much fun!!!",
-		attribution: "Karen Penrod (Parent)",
+		attribution: "Laura Simmons (Parent)",
 		fullWidth: true,
 	},
 ];
@@ -251,6 +252,14 @@ const Families = () => {
 						Ultimate Spectator Guide (rules, terms, safety, Spirit of the Game), visit USA
 						Ultimate.
 					</p>
+					<div className="overflow-hidden bg-white border-2 rounded-lg border-lu-yellow">
+						<img
+							src={spectatorGuide}
+							alt="USA Ultimate spectator guide excerpt with common terms and sideline behavior"
+							className="w-full h-auto"
+							loading="lazy"
+						/>
+					</div>
 					<Link
 						to="/usa-ultimate"
 						className="inline-block px-6 py-2 font-bold transition-colors rounded-full bg-lu-yellow text-lu-green hover:bg-lu-green hover:text-lu-yellow"

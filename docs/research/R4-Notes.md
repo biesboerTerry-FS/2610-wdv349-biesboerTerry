@@ -32,6 +32,24 @@ Evaluating multi-environment deployment pipelines using cloud hosting providers.
 * **Key finding 2: Automated deployment triggers linked to specific branches (stage branch for staging, main branch for production) streamline the release cycle and ensure continuous delivery validation.**
 * **Key finding 3: Utilizing build logs and monitoring tools (such as Papertrail on Heroku) provides essential visibility into server-side compilation errors and runtime exceptions during deployment.**
 
+## Code Quality & Tooling
+
+* **ESLint catches unused variables, hook mistakes, and common React issues.**
+
+* **Prettier would enforce consistent formatting across branches.**
+
+* **GitHub Actions can run lint/build checks on every PR.**
+
+## Styling Architecture
+
+* **Tailwind’s utility-first approach keeps styles close to markup and avoids naming collisions.**
+
+* **Component-scoped CSS improves isolation but adds more files and conventions.**
+
+* **CSS-in-JS offers dynamic styling but increases runtime and tooling complexity.**
+
+* **For this project, Tailwind plus a small amount of global CSS is the best fit.**
+
 ## Reference Links
 
 ** Thinking in React Guide

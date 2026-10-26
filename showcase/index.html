@@ -1,0 +1,2205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lindbergh Ultimate — Milestone 4</title>
+<style>
+  /* ---------------------------------------------------------------- fonts */
+  @font-face {
+    font-family: "Graduate";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("assets/fonts/graduate.woff2") format("woff2");
+  }
+  @font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("assets/fonts/roboto.woff2") format("woff2");
+  }
+
+  /* ---------------------------------------------------------------- tokens */
+  :root {
+    --green: #1c6a37;
+    --green-2: #228044;
+    --dark: #0d3320;
+    --deep: #071f13;
+    --yellow: #fbcc00;
+    --cream: #f7f4e9;
+    --paper: #fffdf6;
+    --ink: #14251a;
+    --muted: #5b6c60;
+    --line: rgba(20, 37, 26, 0.16);
+    --shadow: 0 30px 70px rgba(7, 31, 19, 0.22);
+    --display: "Graduate", Georgia, serif;
+    --body: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background:
+      radial-gradient(80% 90% at 12% 8%, rgba(251, 204, 0, 0.08), transparent 60%),
+      radial-gradient(70% 90% at 92% 88%, rgba(34, 128, 68, 0.22), transparent 62%),
+      var(--deep);
+    color: var(--ink);
+    font-family: var(--body);
+    overflow: hidden;
+  }
+
+  /* ---------------------------------------------------------------- stage */
+  .stage {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 1600px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    background: var(--cream);
+    box-shadow: 0 50px 140px rgba(0, 0, 0, 0.42);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 62px 78px 58px;
+    background: var(--cream);
+    color: var(--ink);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 220ms ease, transform 260ms ease, visibility 220ms;
+  }
+  .slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    z-index: 2;
+  }
+  .slide--dark {
+    background:
+      radial-gradient(70% 80% at 88% 10%, rgba(251, 204, 0, 0.1), transparent 62%),
+      radial-gradient(60% 80% at 4% 96%, rgba(34, 128, 68, 0.35), transparent 60%),
+      var(--dark);
+    color: var(--cream);
+  }
+  .slide--deep {
+    background:
+      radial-gradient(80% 80% at 88% 18%, rgba(251, 204, 0, 0.08), transparent 55%),
+      linear-gradient(160deg, #0a2b19 0%, #071f13 70%);
+    color: var(--cream);
+  }
+
+  /* ---------------------------------------------------------------- type */
+  .eyebrow {
+    margin: 0 0 14px;
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .slide--dark .eyebrow, .slide--deep .eyebrow { color: var(--yellow); }
+  .chapter {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .chapter::before {
+    content: "";
+    width: 26px;
+    height: 3px;
+    background: var(--yellow);
+  }
+  .slide--dark .chapter, .slide--deep .chapter { color: rgba(247, 244, 233, 0.7); }
+
+  h1, h2, h3, p, figure, ul, ol { margin: 0; }
+  h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: 0.02em; }
+  h2 {
+    font-size: 62px;
+    line-height: 0.98;
+    text-transform: uppercase;
+    color: var(--dark);
+    max-width: 1050px;
+  }
+  .slide--dark h2, .slide--deep h2 { color: var(--cream); }
+  .slide-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 400px;
+    gap: 46px;
+    align-items: end;
+    flex: 0 0 auto;
+    margin-bottom: 30px;
+  }
+  .slide-head .lede {
+    font-size: 20px;
+    line-height: 1.36;
+    color: var(--muted);
+    max-width: 400px;
+    padding-bottom: 6px;
+  }
+  .slide--dark .slide-head .lede, .slide--deep .slide-head .lede { color: rgba(247, 244, 233, 0.68); }
+  .lede strong { color: var(--ink); font-weight: 700; }
+  .slide--dark .lede strong, .slide--deep .lede strong { color: var(--cream); }
+
+  .content { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+  .mark {
+    background: var(--yellow);
+    color: var(--dark);
+    padding: 0 0.14em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .slide-footer {
+    position: absolute;
+    left: 78px;
+    right: 78px;
+    bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(20, 37, 26, 0.45);
+  }
+  .slide--dark .slide-footer, .slide--deep .slide-footer { color: rgba(247, 244, 233, 0.45); }
+  .slide-footer .num { color: var(--green); }
+  .slide--dark .slide-footer .num, .slide--deep .slide-footer .num { color: var(--yellow); }
+
+  /* ---------------------------------------------------------------- title */
+  .title-slide { padding: 0; justify-content: flex-start; }
+  .title-slide::after {
+    content: "";
+    position: absolute;
+    right: -170px;
+    top: -220px;
+    width: 720px;
+    height: 720px;
+    border: 2px solid rgba(251, 204, 0, 0.34);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .title-slide::before {
+    content: "";
+    position: absolute;
+    right: 120px;
+    top: 50px;
+    width: 1px;
+    height: 760px;
+    background: rgba(251, 204, 0, 0.22);
+    transform: rotate(24deg);
+    pointer-events: none;
+  }
+  .title-wrap {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 850px 1fr;
+    gap: 46px;
+    padding: 54px 70px 0;
+    height: 760px;
+  }
+  .brandline {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 54px;
+  }
+  .brandline img { width: 92px; height: auto; display: block; }
+  .brandline span {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(247, 244, 233, 0.68);
+  }
+  .title-slide .eyebrow { color: var(--yellow); margin-bottom: 18px; }
+  .title-slide h1 {
+    font-size: 108px;
+    line-height: 0.82;
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.14);
+  }
+  .title-slide h1 span { color: var(--yellow); }
+  .title-sub {
+    margin-top: 26px;
+    font-family: var(--body);
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(247, 244, 233, 0.86);
+  }
+  .presenter {
+    margin-top: 34px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 18px;
+    color: rgba(247, 244, 233, 0.72);
+  }
+  .presenter strong {
+    font-size: 22px;
+    color: var(--cream);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .presenter .rule { width: 46px; height: 2px; background: var(--yellow); }
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 26px;
+    max-width: 720px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 13px;
+    border: 1px solid rgba(251, 204, 0, 0.42);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgba(247, 244, 233, 0.84);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .chip b { color: var(--yellow); font-weight: 700; }
+
+  .title-visual { position: relative; padding-top: 12px; }
+  .title-photo {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border: 2px solid var(--yellow);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+    transform: rotate(1.2deg);
+  }
+  .title-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 55% 52%;
+    display: block;
+  }
+  .title-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 31, 19, 0.05), rgba(7, 31, 19, 0.45));
+  }
+  .title-photo-caption {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    color: var(--cream);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .title-photo-caption b {
+    display: block;
+    margin-bottom: 3px;
+    font-family: var(--display);
+    font-size: 19px;
+    letter-spacing: 0.04em;
+    color: var(--yellow);
+  }
+  .stat-float {
+    position: absolute;
+    right: -18px;
+    top: 452px;
+    width: 218px;
+    padding: 18px 20px;
+    background: var(--yellow);
+    color: var(--dark);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    transform: rotate(-1.4deg);
+  }
+  .stat-float .big { font-family: var(--display); font-size: 46px; line-height: 0.9; white-space: nowrap; }
+  .stat-float .small { margin-top: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+
+  .run-of-show {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 140px;
+    z-index: 3;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    border-top: 1px solid rgba(251, 204, 0, 0.26);
+    background: rgba(0, 0, 0, 0.16);
+    backdrop-filter: blur(5px);
+  }
+  .ros-item {
+    padding: 24px 26px;
+    border-right: 1px solid rgba(251, 204, 0, 0.16);
+  }
+  .ros-item:last-child { border-right: 0; }
+  .ros-item .time {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--yellow);
+  }
+  .ros-item .name {
+    margin-top: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.22;
+    color: rgba(247, 244, 233, 0.88);
+  }
+
+  /* ---------------------------------------------------------------- layout */
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 52px;
+    align-items: center;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .split-wide { grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr); }
+  .split-narrow { grid-template-columns: minmax(0, 0.84fr) minmax(0, 1.16fr); }
+  .stack-24 { display: flex; flex-direction: column; gap: 24px; }
+  .stack-18 { display: flex; flex-direction: column; gap: 18px; }
+  .stack-12 { display: flex; flex-direction: column; gap: 12px; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card {
+    padding: 20px 22px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--yellow);
+  }
+  .stat-card .value {
+    font-family: var(--display);
+    font-size: 46px;
+    line-height: 0.9;
+    color: var(--green);
+  }
+  .stat-card .label {
+    margin-top: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stat-card .note { margin-top: 7px; font-size: 13px; line-height: 1.3; color: var(--muted); }
+
+  .bullets { list-style: none; display: flex; flex-direction: column; gap: 17px; padding: 0; }
+  .bullets li {
+    position: relative;
+    padding-left: 28px;
+    font-size: 21px;
+    line-height: 1.32;
+    color: var(--ink);
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 11px;
+    height: 11px;
+    background: var(--yellow);
+    border: 1px solid rgba(20, 37, 26, 0.2);
+  }
+  .slide--dark .bullets li, .slide--deep .bullets li { color: rgba(247, 244, 233, 0.88); }
+  .bullets strong { color: var(--green); }
+  .slide--dark .bullets strong, .slide--deep .bullets strong { color: var(--yellow); }
+  .bullets small { display: block; margin-top: 4px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+  .slide--dark .bullets small, .slide--deep .bullets small { color: rgba(247, 244, 233, 0.55); }
+
+  .note-line {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: rgba(28, 106, 55, 0.07);
+    border-left: 3px solid var(--yellow);
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .note-line b { color: var(--ink); }
+  .slide--dark .note-line, .slide--deep .note-line {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(247, 244, 233, 0.65);
+  }
+  .slide--dark .note-line b, .slide--deep .note-line b { color: var(--cream); }
+
+  /* ---------------------------------------------------------------- browser + phone */
+  .browser {
+    position: relative;
+    background: #fff;
+    border: 1px solid rgba(7, 31, 19, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 38px;
+    padding: 0 14px;
+    background: #e9e7de;
+    border-bottom: 1px solid rgba(7, 31, 19, 0.12);
+  }
+  .dots { display: flex; gap: 5px; }
+  .dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(7, 31, 19, 0.2); }
+  .dots i:first-child { background: #e0b24a; }
+  .url {
+    flex: 1;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.75);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(20, 37, 26, 0.55);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .browser-body { position: relative; overflow: hidden; background: var(--green); }
+  .browser-body img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .browser--contain .browser-body img { object-fit: contain; }
+  .browser--natural .browser-body img { height: auto; object-fit: contain; }
+  .browser-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 3;
+    padding: 7px 11px;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  }
+
+  .phone {
+    position: relative;
+    width: 248px;
+    padding: 10px;
+    border-radius: 34px;
+    background: #0b1a11;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.34);
+    border: 2px solid rgba(251, 204, 0, 0.55);
+  }
+  .phone::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 16px;
+    transform: translateX(-50%);
+    width: 78px;
+    height: 18px;
+    border-radius: 999px;
+    background: #0b1a11;
+    z-index: 3;
+  }
+  .phone-screen {
+    position: relative;
+    border-radius: 26px;
+    overflow: hidden;
+    aspect-ratio: 390 / 844;
+    background: var(--green);
+  }
+  .phone-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--muted);
+  }
+  .caption b {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .slide--dark .caption, .slide--deep .caption { color: rgba(247, 244, 233, 0.6); }
+  .slide--dark .caption b, .slide--deep .caption b { color: var(--yellow); }
+
+  /* ---------------------------------------------------------------- route board */
+  .route-board {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 44px rgba(7, 31, 19, 0.1);
+    padding: 28px 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+  }
+  .route-group { display: flex; flex-direction: column; gap: 9px; }
+  .route-group .label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .route-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+  .route-pill {
+    padding: 6px 10px;
+    border: 1px solid rgba(28, 106, 55, 0.25);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+    background: rgba(28, 106, 55, 0.045);
+  }
+  .route-pill.hot { background: var(--yellow); border-color: var(--yellow); font-weight: 700; }
+  .route-pill.dark { background: var(--dark); border-color: var(--dark); color: var(--cream); }
+
+  /* ---------------------------------------------------------------- section divider */
+  .divider-slide {
+    justify-content: center;
+    padding-left: 92px;
+    background:
+      linear-gradient(90deg, rgba(7, 31, 19, 0.94) 0%, rgba(7, 31, 19, 0.72) 54%, rgba(7, 31, 19, 0.25) 100%),
+      url("screens/04-media.png") center / cover;
+    color: var(--cream);
+  }
+  .divider-slide .big-num {
+    font-family: var(--display);
+    font-size: 260px;
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(251, 204, 0, 0.55);
+    position: absolute;
+    right: 70px;
+    bottom: 42px;
+  }
+  .divider-slide h2 { font-size: 92px; }
+  .divider-slide .divider-lede { max-width: 620px; margin-top: 22px; font-size: 22px; line-height: 1.4; color: rgba(247, 244, 233, 0.75); }
+  .divider-slide .stack { margin-top: 30px; }
+
+  /* ---------------------------------------------------------------- quadrants */
+  .quad-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .quad {
+    padding: 22px 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 5px solid var(--green);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .quad-num {
+    position: absolute;
+    right: 14px;
+    bottom: 2px;
+    font-family: var(--display);
+    font-size: 110px;
+    line-height: 1;
+    color: rgba(28, 106, 55, 0.07);
+    pointer-events: none;
+  }
+  .quad.challenge { border-top-color: #b4542e; }
+  .quad.learn { border-top-color: var(--green); }
+  .quad.limit { border-top-color: #806b23; }
+  .quad.next { border-top-color: var(--yellow); }
+  .quad h3 {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .quad ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .quad li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.3; color: var(--ink); }
+  .quad li::before { content: "→"; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 700; }
+  .quad.next li::before { color: #9a7800; }
+
+  /* ---------------------------------------------------------------- code */
+  .code-panel {
+    background: #0b2416;
+    border: 1px solid rgba(251, 204, 0, 0.28);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
+  }
+  .code-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(247, 244, 233, 0.58);
+  }
+  .code-head b { color: var(--yellow); font-weight: 600; }
+  pre {
+    margin: 0;
+    padding: 16px 18px 18px;
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.55;
+    color: #dce9df;
+    overflow: hidden;
+    white-space: pre;
+  }
+  .tok-key { color: #fbcc00; }
+  .tok-str { color: #9ed8a8; }
+  .tok-com { color: #6f8a77; }
+  .tok-fn { color: #8fc7ff; }
+  .tok-num { color: #ffb07c; }
+
+  .tree {
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.62;
+    color: #dce9df;
+    background: #0b2416;
+    border: 1px solid rgba(251, 204, 0, 0.28);
+    border-radius: 6px;
+    padding: 22px 24px;
+    overflow: hidden;
+    height: 100%;
+    white-space: pre;
+  }
+  .tree .dim { color: #6f8a77; }
+  .tree .hi { color: var(--yellow); font-weight: 700; }
+  .tree .path { color: #9ed8a8; }
+  .tree .note { color: #8fc7ff; }
+
+  .asset-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 18px 44px rgba(7, 31, 19, 0.1);
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+  }
+  .asset-card h3 {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+  .asset-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .asset-stat { padding: 10px 12px; background: rgba(28, 106, 55, 0.06); border-left: 3px solid var(--yellow); }
+  .asset-stat b { display: block; font-family: var(--display); font-size: 28px; line-height: 0.9; color: var(--green); }
+  .asset-stat span { display: block; margin-top: 4px; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .asset-table { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 1.28; }
+  .asset-table th {
+    text-align: left;
+    padding: 6px 7px;
+    background: var(--dark);
+    color: var(--yellow);
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .asset-table td { padding: 7px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink); }
+  .asset-table code { font-family: var(--mono); font-size: 10px; color: var(--green); }
+  .asset-note { font-size: 11px; line-height: 1.38; color: var(--muted); }
+  .asset-note b { color: #8a3b20; }
+
+  /* ---------------------------------------------------------------- pipeline */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin-bottom: 22px;
+  }
+  .pipe {
+    flex: 1 1 0;
+    position: relative;
+    padding: 13px 12px 14px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--green);
+    min-width: 0;
+  }
+  .pipe:not(:last-child) { margin-right: 17px; }
+  .pipe:not(:last-child)::after {
+    content: "›";
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-52%);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .pipe:nth-child(5) { border-top-color: var(--yellow); background: #fff8d6; }
+  .pipe b { display: block; font-size: 12px; font-weight: 800; letter-spacing: 0.04em; color: var(--ink); }
+  .pipe span { display: block; margin-top: 4px; font-size: 10px; line-height: 1.25; color: var(--muted); }
+  .pipe em { display: block; margin-bottom: 4px; font-size: 8px; font-style: normal; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); }
+
+  .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1 1 auto; min-height: 0; }
+  .code-grid .code-panel { display: flex; flex-direction: column; }
+  .code-grid pre { flex: 1; font-size: 13px; }
+
+  /* ---------------------------------------------------------------- closing */
+  .closing-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 60px;
+    align-items: center;
+    flex: 1 1 auto;
+  }
+  .closing h2 { font-size: 88px; }
+  .closing .thanks {
+    margin-top: 26px;
+    font-size: 21px;
+    line-height: 1.45;
+    max-width: 620px;
+    color: rgba(247, 244, 233, 0.72);
+  }
+  .postmortem {
+    display: block;
+    padding: 30px 32px;
+    background: var(--yellow);
+    color: var(--dark);
+    text-decoration: none;
+    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: transform 160ms ease;
+  }
+  .postmortem:hover { transform: translateY(-3px); }
+  .postmortem .pm-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(7, 31, 19, 0.6);
+  }
+  .postmortem .pm-title {
+    margin-top: 9px;
+    font-family: var(--display);
+    font-size: 42px;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .postmortem .pm-copy { margin-top: 13px; font-size: 15px; line-height: 1.4; max-width: 430px; }
+  .postmortem .pm-arrow { position: absolute; right: 26px; bottom: 25px; font-size: 34px; font-weight: 700; }
+  .link-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .link-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(251, 204, 0, 0.25);
+    font-size: 13px;
+    color: rgba(247, 244, 233, 0.58);
+  }
+  .link-row b { color: var(--cream); font-weight: 600; }
+  .link-row a { color: var(--yellow); text-decoration: none; font-family: var(--mono); font-size: 12px; }
+  .signature { margin-top: 30px; display: flex; align-items: center; gap: 14px; }
+  .signature .sig-rule { width: 40px; height: 2px; background: var(--yellow); }
+  .signature .name { font-size: 19px; font-weight: 700; color: var(--cream); }
+  .signature .role { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(247, 244, 233, 0.5); }
+
+  /* ---------------------------------------------------------------- HUD */
+  .hud {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border: 1px solid rgba(251, 204, 0, 0.24);
+    border-radius: 999px;
+    background: rgba(7, 31, 19, 0.86);
+    color: var(--cream);
+    backdrop-filter: blur(10px);
+    font-family: var(--body);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    opacity: 0.92;
+    transition: opacity 180ms;
+  }
+  .hud:hover { opacity: 1; }
+  .hud.is-idle { opacity: 0; pointer-events: none; }
+  .hud button {
+    appearance: none;
+    border: 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--cream);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+  }
+  .hud button:hover { background: var(--yellow); color: var(--dark); }
+  .hud .divider { width: 1px; height: 18px; background: rgba(255, 255, 255, 0.16); }
+  .hud .counter { min-width: 48px; text-align: center; font-weight: 700; color: var(--yellow); }
+  .hud .section { max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgba(247, 244, 233, 0.72); }
+  .hud .clock { font-family: var(--mono); font-size: 12px; min-width: 68px; text-align: right; color: var(--cream); }
+  .hud .clock.over { color: #ffb07c; }
+  .hud .hint { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 244, 233, 0.35); }
+
+  .progress {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    z-index: 51;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .progress i { display: block; height: 100%; width: 0; background: var(--yellow); transition: width 220ms ease; }
+
+  /* ---------------------------------------------------------------- notes */
+  .notes-panel {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    width: min(1180px, 96vw);
+    transform: translate(-50%, 104%);
+    z-index: 60;
+    max-height: 42vh;
+    overflow: auto;
+    padding: 22px 26px 26px;
+    background: #071f13;
+    border: 1px solid rgba(251, 204, 0, 0.35);
+    border-bottom: 0;
+    border-radius: 14px 14px 0 0;
+    color: var(--cream);
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.35);
+    transition: transform 200ms ease;
+  }
+  .notes-panel.open { transform: translate(-50%, 0); }
+  .notes-top { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; margin-bottom: 10px; }
+  .notes-top .label { font-size: 10px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--yellow); }
+  .notes-top .timing { font-family: var(--mono); font-size: 11px; color: rgba(247, 244, 233, 0.5); }
+  .notes-body { font-size: 15px; line-height: 1.46; color: rgba(247, 244, 233, 0.84); }
+  .notes-body p { margin: 0 0 8px; }
+  .notes-body strong { color: var(--yellow); }
+
+  /* ---------------------------------------------------------------- index */
+  .index-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: none;
+    place-items: center;
+    background: rgba(4, 19, 11, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 40px;
+  }
+  .index-panel.open { display: grid; }
+  .index-card {
+    width: min(1100px, 94vw);
+    max-height: 86vh;
+    overflow: auto;
+    padding: 34px 38px;
+    background: var(--cream);
+    color: var(--ink);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  }
+  .index-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .index-head h2 { font-size: 34px; }
+  .index-head span { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .index-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px 26px; }
+  .index-item {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 9px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .index-item:hover { background: rgba(251, 204, 0, 0.22); }
+  .index-item .n { width: 28px; font-family: var(--mono); font-size: 11px; color: var(--green); }
+  .index-item .t { flex: 1; font-size: 15px; font-weight: 600; }
+  .index-item .s { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -12px);
+    opacity: 0;
+    z-index: 80;
+    padding: 9px 16px;
+    background: var(--yellow);
+    color: var(--dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: opacity 160ms, transform 160ms;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide, .notes-panel, .postmortem, .toast { transition: none; }
+  }
+
+  /* ---------------------------------------------------------------- print */
+  @media print {
+    @page { size: 16.667in 9.375in; margin: 0; }
+    html, body { width: 1600px; height: auto; overflow: visible; background: #fff; }
+    .stage {
+      position: static;
+      width: 1600px;
+      height: auto;
+      transform: none !important;
+      box-shadow: none;
+      background: #fff;
+    }
+    .slide {
+      position: relative;
+      display: flex !important;
+      width: 1600px;
+      height: 900px;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      break-after: page;
+      page-break-after: always;
+    }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .hud, .progress, .notes-panel, .index-panel, .toast { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- ============================================================ 1 · TITLE -->
+  <section class="slide slide--dark title-slide is-active"
+           data-title="Title"
+           data-section="00 · Title"
+           data-start="0:00" data-end="0:30">
+    <div class="title-wrap">
+      <div>
+        <div class="brandline">
+          <img src="assets/ultimateLogoTransparent.png" alt="Lindbergh Ultimate logo">
+          <span>Lindbergh Ultimate · WDV 349</span>
+        </div>
+        <p class="eyebrow">Project &amp; Portfolio IV · Milestone 4</p>
+        <h1>Lindbergh<br><span>Ultimate</span></h1>
+        <p class="title-sub">A full-stack program site — public pages, live forms, one admin panel.</p>
+        <div class="presenter">
+          <span class="rule"></span>
+          <strong>Terry Biesboer</strong>
+          <span>October 2026</span>
+        </div>
+        <div class="stack">
+          <span class="chip"><b>Frontend</b> React 19 · Vite 7 · Tailwind 4</span>
+          <span class="chip"><b>API</b> Express 5 · Node 20+</span>
+          <span class="chip"><b>Data</b> MongoDB Atlas · Mongoose 9</span>
+          <span class="chip"><b>Auth</b> JWT · single admin</span>
+        </div>
+      </div>
+
+      <div class="title-visual">
+        <div class="title-photo">
+          <img src="screens/01d-home-what-is.png" alt="Lindbergh Ultimate players on the field">
+          <div class="title-photo-caption">
+            <span><b>Six minutes</b>Public site → forms → admin → repo</span>
+            <span>v1.0 α</span>
+          </div>
+        </div>
+        <div class="stat-float">
+          <div class="big">22+16</div>
+          <div class="small">Mongoose models · public routes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="run-of-show">
+      <div class="ros-item"><div class="time">0:00–0:30</div><div class="name">Title &amp; stack</div></div>
+      <div class="ros-item"><div class="time">0:30–2:00</div><div class="name">Public site &amp; mobile</div></div>
+      <div class="ros-item"><div class="time">2:00–3:00</div><div class="name">Live interest form</div></div>
+      <div class="ros-item"><div class="time">3:00–4:30</div><div class="name">Admin Panel</div></div>
+      <div class="ros-item"><div class="time">4:30–5:15</div><div class="name">Repo &amp; request path</div></div>
+      <div class="ros-item"><div class="time">5:15–6:00</div><div class="name">Retro &amp; postmortem</div></div>
+    </div>
+
+    <template class="notes">
+      <p><strong>0:00–0:30 · 30 sec.</strong> Good evening. I'm Terry Biesboer. This is <em>Lindbergh Ultimate</em>, my Milestone 4 full-stack alpha.</p>
+      <p><strong>Say:</strong> The public site is React 19 and Vite 7 with Tailwind 4. The API is Express 5 with MongoDB Atlas through Mongoose 9. One administrator account manages the database. In six minutes I'll walk the public site, submit a live interest form, show the admin workflow, then the repo and what I'd do next.</p>
+      <p><strong>Tip:</strong> Press <strong>N</strong> to hide these notes, <strong>F</strong> for fullscreen. The clock starts when you advance.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 2 · PUBLIC OVERVIEW -->
+  <section class="slide"
+           data-title="Public site overview"
+           data-section="01 · Public site"
+           data-start="0:30" data-end="1:05">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">01 · Public site</p>
+        <h2>One program.<br>One place to find it.</h2>
+      </div>
+      <p class="lede">A real program site for families, players, and boosters — <strong>16 routes</strong> built from <strong>13 shared components</strong>, with the same green/yellow identity on every screen.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="align-items: stretch;">
+        <div class="stack-24">
+          <div class="stat-grid">
+            <div class="stat-card"><div class="value">16</div><div class="label">public routes</div><div class="note">15 page components</div></div>
+            <div class="stat-card"><div class="value">13</div><div class="label">shared components</div><div class="note">Header, cards, footer, dividers</div></div>
+            <div class="stat-card"><div class="value">43</div><div class="label">bundled images</div><div class="note">Every one mapped in ASSET_MAP.md</div></div>
+            <div class="stat-card"><div class="value">390</div><div class="label">px smallest target</div><div class="note">Mobile nav, stacked forms, galleries</div></div>
+          </div>
+          <div class="note-line"><b>Design system:</b> Lindbergh green, yellow, cream, Graduate display headings, Roboto labels, and a sticky header that collapses below 1100px.</div>
+        </div>
+
+        <div class="route-board" style="justify-content: center;">
+          <div class="route-group">
+            <div class="label">The program</div>
+            <div class="route-pills">
+              <span class="route-pill hot">Home</span>
+              <span class="route-pill">High School</span>
+              <span class="route-pill">Middle School</span>
+              <span class="route-pill">Families</span>
+              <span class="route-pill">Play Opportunities</span>
+              <span class="route-pill">Coaching Apprenticeship</span>
+            </div>
+          </div>
+          <div class="route-group">
+            <div class="label">The season</div>
+            <div class="route-pills">
+              <span class="route-pill">Registration</span>
+              <span class="route-pill">2026 Calendar</span>
+              <span class="route-pill">Power Lunch</span>
+              <span class="route-pill">Fundraiser</span>
+              <span class="route-pill">USA Ultimate</span>
+            </div>
+          </div>
+          <div class="route-group">
+            <div class="label">The community</div>
+            <div class="route-pills">
+              <span class="route-pill">Booster Club</span>
+              <span class="route-pill">Media</span>
+              <span class="route-pill">SportsYou</span>
+              <span class="route-pill">Interest Form</span>
+            </div>
+          </div>
+          <div class="route-group">
+            <div class="label">The operator</div>
+            <div class="route-pills"><span class="route-pill dark">Admin login</span></div>
+          </div>
+          <div class="note-line" style="margin-top: 4px;"><b>Demo path:</b> Home → High School → Booster Club → Media → Calendar → mobile nav.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">02</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>0:30–1:05 · 35 sec.</strong> Start with scale: 16 routes across 15 page components, built from 13 shared components. The visual system is Lindbergh green, yellow, cream, Graduate headings, Roboto labels.</p>
+      <p><strong>Say:</strong> The site map groups into program, season, and community pages. The header is sticky and collapses below 1100 pixels. All 43 image assets are mapped in ASSET_MAP.md, including the unused ones.</p>
+      <p><strong>Transition:</strong> "Let's start with the pages families actually land on."</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 3 · HOME + HS -->
+  <section class="slide"
+           data-title="Home and High School"
+           data-section="01 · Public site"
+           data-start="1:05" data-end="1:35">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">01 · Public site</p>
+        <h2>People first,<br>paperwork second.</h2>
+      </div>
+      <p class="lede">The home page sells the program. The High School page gives families the coaches, the interest-meeting slides, and the season packet in one scroll.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="align-items: start;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">lindberghultimate.org/</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/01c-home-welcome.png" alt="Home page welcome section with team photo and mission">
+              <span class="browser-tag">Home</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Mission + team photo</b><span>Rules, history, team store below</span></div>
+        </div>
+
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">lindberghultimate.org/high-school</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/02c-high-school-coaches.png" alt="High School page coach cards">
+              <span class="browser-tag">High School</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Coaches + season docs</b><span>Interest meeting slides · PDF packet</span></div>
+        </div>
+      </div>
+
+      <div class="note-line" style="margin-top: 22px;"><b>Reuse:</b> the same hero, section heading, card, and PDF action components appear across program pages — only the content changes.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">03</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>1:05–1:35 · 30 sec.</strong> Home leads with the mission and a team photo, then rules, program history, and the team store. High School puts the four coaches up front, then downloadable interest-meeting slides and the 2026 season packet.</p>
+      <p><strong>Point at:</strong> the sticky nav and the consistent yellow-outlined cards. "These are shared components, not one-off pages."</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 4 · BOOSTER + MEDIA -->
+  <section class="slide"
+           data-title="Booster Club and Media"
+           data-section="01 · Public site"
+           data-start="1:35" data-end="2:00">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">01 · Public site</p>
+        <h2>Community is<br>content, too.</h2>
+      </div>
+      <p class="lede">The Booster Club page turns a directory into a call for help — three open seats. Media gives the program a video home and nine gallery covers.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 0.72fr 1.28fr; align-items: start;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/booster-club</span></div>
+            <div class="browser-body" style="aspect-ratio: 0.95 / 1;">
+              <img src="screens/03c-booster-directory.png" alt="Booster Club member directory">
+              <span class="browser-tag">12 seats · 3 open</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Booster Club</b><span>Directory, roles, mailto links</span></div>
+        </div>
+
+        <div class="stack-18" style="gap: 12px;">
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/media</span></div>
+            <div class="browser-body" style="aspect-ratio: 2 / 1;">
+              <img src="screens/04-media.png" alt="Media page hero, video, and galleries">
+              <span class="browser-tag">Media</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Video + galleries</b><span>Intro video · nine gallery covers</span></div>
+          <div class="note-line"><b>Same card, different data:</b> the member and gallery cards are reusable patterns, so new content does not mean new layout work.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">04</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>1:35–2:00 · 25 sec.</strong> Booster Club is a 12-seat directory with three open positions and mailto links. Media has the intro video and nine gallery covers.</p>
+      <p><strong>Say:</strong> Both pages use the same card pattern. The content changes, the layout does not. That is the payoff of the component system.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 5 · CALENDAR + MOBILE -->
+  <section class="slide"
+           data-title="Calendar and mobile"
+           data-section="01 · Public site"
+           data-start="1:45" data-end="2:00">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">01 · Public site</p>
+        <h2>The same site<br>in a pocket.</h2>
+      </div>
+      <p class="lede">One calendar for the 2026 season, and a mobile nav that gets out of the way. The site is built at 390px first, not shrunk down to it.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 1.18fr 0.82fr; align-items: center;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">lindberghultimate.org/calendar</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 9.2;">
+              <img src="screens/05-calendar.png" alt="2026 season calendar page">
+              <span class="browser-tag">2026 Calendar</span>
+            </div>
+          </figure>
+          <div class="caption"><b>One season, one source</b><span>Month grid · add-to-calendar links</span></div>
+        </div>
+
+        <div style="display: flex; gap: 18px; justify-content: center; align-items: flex-end;">
+          <figure class="phone" style="width: 214px;">
+            <div class="phone-screen"><img src="screens/06-mobile-home.png" alt="Mobile home page"></div>
+          </figure>
+          <figure class="phone" style="width: 232px;">
+            <div class="phone-screen"><img src="screens/07-mobile-nav.png" alt="Mobile navigation open"></div>
+          </figure>
+        </div>
+      </div>
+      <div class="note-line" style="margin-top: 18px;"><b>Responsive proof:</b> below 1100px the desktop nav becomes a hamburger; the mobile menu stacks every route and keeps the Yellow/Green brand intact.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">05</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>1:45–2:00 · 15 sec.</strong> The calendar is the single source for the 2026 season. On a 390px phone the nav collapses into a sticky hamburger, forms stack, and the galleries stay readable.</p>
+      <p><strong>Transition:</strong> "Now let's submit something."</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 6 · FORM -->
+  <section class="slide"
+           data-title="Interest form"
+           data-section="02 · Forms"
+           data-start="2:00" data-end="2:30">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">02 · Forms</p>
+        <h2>Sixty seconds<br>to say “I'm in.”</h2>
+      </div>
+      <p class="lede">A 13-field quick-interest form with radio groups, required markers, and inline errors. It writes to the same database the coaches use.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 1.08fr 0.92fr; align-items: center;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/interest-form</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10.6;">
+              <img src="screens/08-interest-form.png" alt="Completed interest form with dummy data">
+              <span class="browser-tag">Dummy data: Sofia Reyes · 9th · Girls</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Controlled React inputs</b><span>One form state object · inline field errors</span></div>
+        </div>
+
+        <div class="stack-24">
+          <ul class="bullets">
+            <li><strong>13 fields</strong> across student, school, and parent contact — required fields marked, optional fields labeled.</li>
+            <li><strong>Client + server validation</strong> share the same rules; the API returns field-level errors.</li>
+            <li><strong>Rate-limited public write</strong> before the controller runs.</li>
+            <li><strong>Dummy data</strong> makes the demo safe and repeatable.</li>
+          </ul>
+          <div class="code-panel">
+            <div class="code-head"><span>src/lib/api.js</span><b>POST</b></div>
+            <pre><span class="tok-key">export</span> <span class="tok-key">const</span> submitInterestForm = (form) =>
+  postJson(<span class="tok-str">"/interest-submissions"</span>, form);</pre>
+          </div>
+          <div class="note-line"><b>Live demo:</b> fill Sofia Reyes, submit, then follow the record into the Admin Panel.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">06</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>2:00–2:30 · 30 sec.</strong> The interest form has 13 fields across student, school, and parent contact. Required fields are marked; optional fields say so.</p>
+      <p><strong>Say:</strong> The form is controlled React state. It validates on the client, posts to the API, and the API re-validates with the same rules and a public rate limiter. The dummy data is Sofia Reyes, 9th grade, Girls.</p>
+      <p><strong>Action:</strong> Submit the form now. Do not narrate the spinner; wait for the success state.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 7 · FORM → ADMIN -->
+  <section class="slide"
+           data-title="Form to admin"
+           data-section="02 · Forms"
+           data-start="2:30" data-end="3:00">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">02 · Forms</p>
+        <h2>Submit once.<br>Already in the admin.</h2>
+      </div>
+      <p class="lede">No CSV. No copy-paste. The family sees a success state; the coach sees the same record, with every field, one search away.</p>
+    </div>
+
+    <div class="content">
+      <div style="display: grid; grid-template-columns: 1fr 96px 1fr; gap: 0; align-items: center; flex: 1; min-height: 0;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/interest-form · success</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/09-interest-success.png" alt="Interest form success state" style="object-position: top;">
+              <span class="browser-tag">201 Created</span>
+            </div>
+          </figure>
+          <div class="caption"><b>What the family sees</b><span>Success state replaces the form</span></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--green);">
+          <span style="font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;">same record</span>
+          <span style="font-size: 44px; line-height: 1;">→</span>
+          <span style="font-family: var(--mono); font-size: 10px; color: var(--muted);">POST · 201</span>
+        </div>
+
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/interest-submissions</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/13-admin-interest-detail.png" alt="Admin interest record detail" style="object-position: top left;">
+              <span class="browser-tag">Sofia Reyes · detail</span>
+            </div>
+          </figure>
+          <div class="caption"><b>What the coach sees</b><span>Parent contact · interest level · timestamp</span></div>
+        </div>
+      </div>
+
+      <div class="note-line" style="margin-top: 18px;"><b>The loop:</b> React form → Express validator + rate limiter → Mongoose model → MongoDB → admin table and detail drawer. One request, one record, no re-entry.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">07</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>2:30–3:00 · 30 sec.</strong> Here is the success state. In the admin, search "Sofia" and the row is already there. Open it: every stored field is visible — parent phone, parent email, interest level, status, and submitted timestamp.</p>
+      <p><strong>Say:</strong> This is the full loop: React form, Express validator and rate limiter, Mongoose model, MongoDB, and the admin table. No CSV, no copy-paste, no second source of truth.</p>
+      <p><strong>Action:</strong> Search Sofia, open the row, then move to the Admin section.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 8 · ADMIN LOGIN -->
+  <section class="slide slide--dark"
+           data-title="Admin login"
+           data-section="03 · Admin Panel"
+           data-start="3:00" data-end="3:20">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">03 · Admin Panel</p>
+        <h2>One admin.<br>Every route guarded.</h2>
+      </div>
+      <p class="lede">The panel is intentionally single-administrator: one seeded account, a JWT, and an <strong>authenticate</strong> middleware in front of every admin route.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 0.9fr 1.1fr; align-items: center;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/login</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 11;">
+              <img src="screens/10-admin-login.png" alt="Admin Panel login screen">
+              <span class="browser-tag">Admin login</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Single account</b><span>Seeded from environment variables</span></div>
+        </div>
+
+        <div class="stack-24">
+          <ul class="bullets">
+            <li><strong>JWT in localStorage</strong> keeps the session across refreshes.</li>
+            <li><strong>Bearer token</strong> on every <code style="font-family:var(--mono);font-size:0.85em;color:var(--yellow);">/api/admin/*</code> request.</li>
+            <li><strong>401 handling</strong> clears the token and returns to login.</li>
+            <li><strong>No secrets in source:</strong> email, password, and <code style="font-family:var(--mono);font-size:0.85em;color:var(--yellow);">JWT_SECRET</code> live in <code style="font-family:var(--mono);font-size:0.85em;color:var(--yellow);">.env</code>.</li>
+          </ul>
+          <div class="code-panel">
+            <div class="code-head"><span>server/src/routes/admin.js</span><b>guard</b></div>
+            <pre>router.<span class="tok-fn">use</span>(authenticate);
+
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/dashboard"</span>, dashboard);
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/meta"</span>, (req, res) => {
+  res.<span class="tok-fn">json</span>({ success: <span class="tok-key">true</span>, data: <span class="tok-fn">buildAdminMeta</span>() });
+});</pre>
+          </div>
+          <div class="note-line"><b>Intentional scope:</b> one account, no coach roles. The goal is a reliable admin slice, not a permissions system.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">08</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>3:00–3:20 · 20 sec.</strong> The panel is intentionally single-admin. Login posts to the auth route and receives a JWT, which is stored in localStorage. Every admin route runs through authenticate middleware. A 401 clears the token and sends you back to login.</p>
+      <p><strong>Say:</strong> The seeded email, password, and JWT secret come from environment variables. Nothing sensitive is committed.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 9 · DASHBOARD -->
+  <section class="slide"
+           data-title="Dashboard"
+           data-section="03 · Admin Panel"
+           data-start="3:20" data-end="3:40">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">03 · Admin Panel</p>
+        <h2>The season<br>at a glance.</h2>
+      </div>
+      <p class="lede">Eight live aggregates: registrations, interest, players, subscribers, events, inbox, donations, and the active season — plus the five newest submissions.</p>
+    </div>
+
+    <div class="content">
+      <div style="display: grid; grid-template-columns: 840px 1fr; gap: 40px; align-items: center; flex: 1; min-height: 0;">
+        <figure class="browser">
+          <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin</span></div>
+          <div class="browser-body" style="aspect-ratio: 16 / 10;">
+            <img src="screens/11b-admin-dashboard-full.png" alt="Admin dashboard with stats and recent submissions">
+          </div>
+        </figure>
+
+        <div class="stack-18">
+          <div class="note-line"><b>Pipeline:</b> registrations, interest forms, players, and subscribers — each card links into its table.</div>
+          <div class="note-line"><b>Season:</b> upcoming public events, unread messages, donations raised, and the active season dates.</div>
+          <div class="note-line"><b>Latest:</b> the five newest registrations and interest forms, with status chips and one-click “View all.”</div>
+          <div class="caption" style="margin-top: 2px;"><b>Computed on read</b><span>Mongoose counts + aggregations, not stored counters</span></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">09</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>3:20–3:40 · 20 sec.</strong> The dashboard aggregates the season: registrations, interest, players, subscribers, upcoming events, inbox, donations, and the active season. The bottom row is the five newest registrations and interest forms.</p>
+      <p><strong>Say:</strong> These are computed on read with Mongoose counts and aggregations. There are no stored counters to drift out of sync. Each card links into the table it summarizes.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 10 · SEARCH -->
+  <section class="slide"
+           data-title="Searchable table"
+           data-section="03 · Admin Panel"
+           data-start="3:40" data-end="4:00">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">03 · Admin Panel</p>
+        <h2>Search is the<br>admin's power tool.</h2>
+      </div>
+      <p class="lede">Twenty-two collections share one table component. Debounced search, pagination, status chips, and a row click that opens the full record.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 0.84fr 1.16fr; align-items: center;">
+        <div class="stack-24">
+          <ul class="bullets">
+            <li><strong>22 resources</strong> from players to donations, grouped in the sidebar.</li>
+            <li><strong>300ms debounce</strong> — type “Larson” and 12 players become one.</li>
+            <li><strong>25 / 50 / 100 rows</strong> with page counts and Previous/Next.</li>
+            <li><strong>Row click</strong> opens every stored field, including populated references.</li>
+          </ul>
+          <div class="note-line"><span><b>One table, many schemas:</b> column definitions live in <code style="font-family:var(--mono);font-size:0.86em;color:var(--green);">src/admin/resources.js</code>. The API does the filtering and pagination.</span></div>
+        </div>
+
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players?q=Larson</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/15-admin-search.png" alt="Admin players table filtered to Larson">
+              <span class="browser-tag">1 record matching “Larson”</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Server-side search</b><span>Search fields defined per resource</span></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">10</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>3:40–4:00 · 20 sec.</strong> Twenty-two collections share one table component. Search is debounced 300 milliseconds and runs on the server. Here "Larson" narrows 12 players to one record. Pagination is 25, 50, or 100 rows.</p>
+      <p><strong>Action:</strong> Type Larson live, then click the row.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 11 · DETAIL + EDIT -->
+  <section class="slide"
+           data-title="Record detail and edit"
+           data-section="03 · Admin Panel"
+           data-start="4:00" data-end="4:15">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">03 · Admin Panel</p>
+        <h2>Every field.<br>Even the hidden ones.</h2>
+      </div>
+      <p class="lede">The drawer shows the document as stored: references, nested fields, booleans, dates — plus raw JSON. Edit renders from the schema metadata.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="align-items: start;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players · detail</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/16-admin-detail.png" alt="Admin record detail drawer">
+              <span class="browser-tag">Read</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Detail</b><span>All fields · refs · raw JSON</span></div>
+        </div>
+
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players · edit</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10;">
+              <img src="screens/17-admin-edit.png" alt="Admin edit player form">
+              <span class="browser-tag">Write</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Edit</b><span>Schema-driven form · PATCH</span></div>
+        </div>
+      </div>
+      <div class="note-line" style="margin-top: 20px;"><b>Why it scales:</b> <code style="font-family:var(--mono);font-size:0.9em;color:var(--green);">/api/admin/meta</code> describes each Mongoose schema. Add a model field and the create/edit form gets it automatically.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">11</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>4:00–4:15 · 15 sec.</strong> Detail shows every field, including populated references and raw JSON. Edit is generated from /api/admin/meta, which describes the Mongoose schema. Add a field to the model, and the form gets it.</p>
+      <p><strong>Say:</strong> Read and write use the same source of truth.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 12 · CREATE + DELETE -->
+  <section class="slide"
+           data-title="Create and delete"
+           data-section="03 · Admin Panel"
+           data-start="4:15" data-end="4:30">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">03 · Admin Panel</p>
+        <h2>Create and delete<br>without leaving the table.</h2>
+      </div>
+      <p class="lede">The same generated form handles new records. Delete asks for confirmation, then refreshes the count. Seed scripts make the demo reversible.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 1fr 1fr; align-items: start;">
+        <div>
+          <figure class="browser">
+            <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players · new</span></div>
+            <div class="browser-body" style="aspect-ratio: 16 / 10.6;">
+              <img src="screens/18-admin-create.png" alt="New player form filled with dummy data">
+              <span class="browser-tag">New player</span>
+            </div>
+          </figure>
+          <div class="caption"><b>Create</b><span>Same validation as the API</span></div>
+          <div class="note-line" style="margin-top: 18px;"><b>Guardrails:</b> required fields, enum validation, collision-safe IDs, and a confirm before destroy.</div>
+        </div>
+
+        <div class="stack-18" style="gap: 10px;">
+          <div>
+            <figure class="browser">
+              <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players · saved</span></div>
+              <div class="browser-body" style="aspect-ratio: 16 / 4.7;">
+                <img src="screens/19-admin-created.png" alt="Player saved confirmation and table" style="object-position: top;">
+                <span class="browser-tag">Player saved.</span>
+              </div>
+            </figure>
+            <div class="caption"><b>Create → 13 records</b><span>Notice + refreshed table</span></div>
+          </div>
+          <div>
+            <figure class="browser">
+              <div class="browser-bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">/admin/players · deleted</span></div>
+              <div class="browser-body" style="aspect-ratio: 16 / 4.7;">
+                <img src="screens/20-admin-deleted.png" alt="Player deleted confirmation and table" style="object-position: top;">
+                <span class="browser-tag">Player deleted.</span>
+              </div>
+            </figure>
+            <div class="caption"><b>Delete → 12 records</b><span>Confirm dialog first</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">12</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>4:15–4:30 · 15 sec.</strong> Create uses the same generated form and validation. Save returns a notice and refreshes the count. Delete requires a confirm; here the record is gone and the count drops back to 12.</p>
+      <p><strong>Say:</strong> The seed scripts make the demo reversible, so I can reset the data after the presentation.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 13 · REPO + ASSET MAP -->
+  <section class="slide slide--deep"
+           data-title="Repo and ASSET_MAP"
+           data-section="04 · Code &amp; repo"
+           data-start="4:30" data-end="4:52">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">04 · Code &amp; repo</p>
+        <h2>The repo<br>is the map.</h2>
+      </div>
+      <p class="lede">Everything lives under <strong>dev/portfolio</strong>: the React app, the Express API, 22 models, three route files, seed scripts, and the asset map.</p>
+    </div>
+
+    <div class="content">
+      <div class="split" style="grid-template-columns: 1.12fr 0.88fr; align-items: stretch;">
+        <div class="tree">
+<span class="dim">2610-wdv349-biesboerTerry/</span>
+├── <span class="hi">dev/portfolio/</span>        <span class="note">React + Vite frontend</span>
+│   ├── src/
+│   │   ├── <span class="path">pages/</span>           <span class="dim">15 public pages · 16 routes</span>
+│   │   ├── <span class="path">components/</span>      <span class="dim">13 shared sections</span>
+│   │   ├── <span class="path">admin/</span>           <span class="dim">login · dashboard · tables · forms</span>
+│   │   └── <span class="path">lib/api.js</span>      <span class="dim">one fetch wrapper</span>
+│   ├── <span class="hi">server/</span>
+│   │   └── src/
+│   │       ├── <span class="hi">models/</span>        <span class="dim">22 Mongoose models</span>
+│   │       ├── <span class="hi">routes/</span>        <span class="dim">public.js · auth.js · admin.js</span>
+│   │       ├── controllers/    <span class="dim">CRUD + domain handlers</span>
+│   │       ├── middleware/     <span class="dim">auth · validate · rate limit · errors</span>
+│   │       └── seed/           <span class="dim">content + admin + demo data</span>
+│   ├── <span class="hi">ASSET_MAP.md</span>       <span class="dim">43 assets · 94 table rows</span>
+│   └── README.md           <span class="dim">setup · scripts · env</span>
+└── docs/                   <span class="dim">proposal · research · logs · postmortem</span>
+        </div>
+
+        <div class="asset-card">
+          <div>
+            <h3>ASSET_MAP.md</h3>
+            <p class="asset-note" style="margin-top:6px;">Every image, route, and reuse — the source of truth for “where does this file show up?”</p>
+          </div>
+          <div class="asset-stats">
+            <div class="asset-stat"><b>43</b><span>bundled assets</span></div>
+            <div class="asset-stat"><b>94</b><span>mapped rows</span></div>
+            <div class="asset-stat"><b>189</b><span>lines</span></div>
+            <div class="asset-stat"><b>8</b><span>unused flagged</span></div>
+          </div>
+          <table class="asset-table">
+            <thead><tr><th>Route</th><th>Assets</th><th>Visitor sees</th></tr></thead>
+            <tbody>
+              <tr><td><code>/</code></td><td><code>welcome.png<br>ultimateRules.png<br>swag.png</code></td><td>Mission, rules diagram, team store</td></tr>
+              <tr><td><code>/booster-club</code></td><td><code>coach-1…4<br>booster-1…5<br>blankAvatar.svg</code></td><td>12-seat directory, 3 open seats</td></tr>
+              <tr><td><code>/media</code></td><td><code>9 gallery covers</code></td><td>Video + nine gallery collections</td></tr>
+            </tbody>
+          </table>
+          <div class="asset-note" style="margin-top:auto;"><b>Dummy content notice:</b> all people, emails, and portraits are fictional; PDFs are sample documents. The map keeps that honest.</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">13</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>4:30–4:52 · 22 sec.</strong> The repo root puts the application in dev/portfolio. The frontend has pages, components, admin views, and one API wrapper. The server has 22 models, three route files — public, auth, admin — controllers, middleware, and seed scripts.</p>
+      <p><strong>Point at ASSET_MAP:</strong> 43 bundled assets, 94 table rows, 189 lines. It maps every image to its route, flags eight unused files, and carries the dummy-content notice.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 14 · REQUEST PATH -->
+  <section class="slide"
+           data-title="One request, end to end"
+           data-section="04 · Code &amp; repo"
+           data-start="4:52" data-end="5:15">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">04 · Code &amp; repo</p>
+        <h2>One request,<br>end to end.</h2>
+      </div>
+      <p class="lede">A form submission crosses seven layers. Each layer has one job, and the admin reads the same model the public form wrote.</p>
+    </div>
+
+    <div class="content">
+      <div class="pipeline">
+        <div class="pipe"><em>01</em><b>React form</b><span>controlled state</span></div>
+        <div class="pipe"><em>02</em><b>fetch wrapper</b><span>one API base</span></div>
+        <div class="pipe"><em>03</em><b>Express route</b><span>public.js</span></div>
+        <div class="pipe"><em>04</em><b>Validator</b><span>zod-style rules</span></div>
+        <div class="pipe"><em>05</em><b>Controller</b><span>domain + CRUD</span></div>
+        <div class="pipe"><em>06</em><b>Mongoose</b><span>schema + enums</span></div>
+        <div class="pipe"><em>07</em><b>MongoDB</b><span>Atlas document</span></div>
+      </div>
+
+      <div class="code-grid">
+        <div class="code-panel">
+          <div class="code-head"><span>server/src/routes/public.js</span><b>route</b></div>
+          <pre>router.<span class="tok-fn">post</span>(
+  <span class="tok-str">"/registrations"</span>,
+  publicSubmissionLimiter,
+  <span class="tok-fn">validateBody</span>(registrationSchema),
+  createRegistration,
+);
+
+router.<span class="tok-fn">post</span>(
+  <span class="tok-str">"/interest-submissions"</span>,
+  publicSubmissionLimiter,
+  <span class="tok-fn">validateBody</span>(interestSubmissionSchema),
+  createInterestSubmission,
+);
+
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/coaches"</span>, listPublicCoaches);
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/booster-members"</span>, listPublicBoosterMembers);
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/schedules"</span>, listPublicSchedules);
+router.<span class="tok-fn">get</span>(<span class="tok-str">"/settings"</span>, listPublicSettings);</pre>
+        </div>
+
+        <div class="code-panel">
+          <div class="code-head"><span>server/src/models/Registration.js</span><b>model</b></div>
+          <pre>season: { type: ObjectId, ref: <span class="tok-str">"Season"</span> },
+player: { type: ObjectId, ref: <span class="tok-str">"Player"</span> },
+
+athleteName: { type: String, required: <span class="tok-key">true</span> },
+grade: { type: String, <span class="tok-fn">enum</span>: GRADE_OPTIONS },
+school: { type: String, <span class="tok-fn">enum</span>: SCHOOL_OPTIONS },
+division: { type: String, <span class="tok-fn">enum</span>: DIVISION_OPTIONS },
+shirtSize: { type: String, <span class="tok-fn">enum</span>: SHIRT_SIZES },
+phone: <span class="tok-fn">phoneField</span>({ required: <span class="tok-key">true</span> }),
+
+status: {
+  type: String,
+  <span class="tok-fn">enum</span>: SUBMISSION_STATUSES,
+  <span class="tok-key">default</span>: <span class="tok-str">"submitted"</span>,
+  index: <span class="tok-key">true</span>,
+},
+submittedAt: { type: Date, <span class="tok-key">default</span>: Date.now },</pre>
+        </div>
+      </div>
+
+      <div class="note-line" style="margin-top: 18px;"><b>Same model, two audiences:</b> the public route creates the document; the admin route lists, searches, edits, and deletes it. No duplicate shape, no sync job.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">14</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>4:52–5:15 · 23 sec.</strong> One request crosses seven layers: React form, fetch wrapper, Express route, validator, controller, Mongoose model, MongoDB. The route snippet shows the rate limiter and validator before the controller.</p>
+      <p><strong>Say:</strong> The admin reads the same model the public form wrote. There is no duplicate shape and no sync job. If the enum changes, both sides change together.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 15 · RETRO -->
+  <section class="slide"
+           data-title="Challenges and next steps"
+           data-section="05 · Retrospective"
+           data-start="5:15" data-end="5:45">
+    <div class="slide-head">
+      <div>
+        <p class="chapter">05 · Retrospective</p>
+        <h2>What broke,<br>what stuck, what's next.</h2>
+      </div>
+      <p class="lede">The honest version: the app is a working alpha, not a finished product. The gaps are known, and the next slice is scoped.</p>
+    </div>
+
+    <div class="content">
+      <div class="quad-grid">
+        <div class="quad challenge">
+          <span class="quad-num">01</span>
+          <h3>Challenges</h3>
+          <ul>
+            <li>A 168 MB archive plus tracked <code style="font-family:var(--mono);font-size:0.84em;">node_modules</code> blocked the push.</li>
+            <li>A duplicate app tree and broken gitlink had to be removed.</li>
+            <li>CORS, Vite ports, and Atlas database naming caused avoidable confusion.</li>
+          </ul>
+        </div>
+        <div class="quad learn">
+          <span class="quad-num">02</span>
+          <h3>What I learned</h3>
+          <ul>
+            <li>Secret and generated-file hygiene belongs in <code style="font-family:var(--mono);font-size:0.84em;">.gitignore</code> before the first commit.</li>
+            <li>Schema metadata can drive an entire admin UI.</li>
+            <li>Test the production build, not only the dev server.</li>
+          </ul>
+        </div>
+        <div class="quad limit">
+          <span class="quad-num">03</span>
+          <h3>Limitations</h3>
+          <ul>
+            <li>Most public content pages still read local data; forms and admin are wired to the API.</li>
+            <li>Single admin, no roles or audit log.</li>
+            <li>Placeholder photos/PDFs, no automated tests, no production deploy yet.</li>
+          </ul>
+        </div>
+        <div class="quad next">
+          <span class="quad-num">04</span>
+          <h3>Next steps</h3>
+          <ul>
+            <li>Deploy frontend + API with environment secrets.</li>
+            <li>Wire remaining public content to the API; add API + form tests.</li>
+            <li>Accessibility and image optimization; fix logo contrast on cream; prop docs.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note-line" style="margin-top: 16px;"><b>Milestone 5 thesis:</b> ship the thin slice end to end, then widen it — deploy first, then replace local page data with API reads.</div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">15</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>5:15–5:45 · 30 sec.</strong> Be direct. Challenges: the 168 MB archive and tracked node_modules blocked the push; a duplicate tree and broken gitlink; CORS, ports, and Atlas database naming.</p>
+      <p><strong>Learned:</strong> secret and generated-file hygiene before the first commit, schema-driven admin UI, and testing the production build.</p>
+      <p><strong>Limits:</strong> most public content pages still read local data, one admin with no roles, placeholders, no automated tests, no production deploy.</p>
+      <p><strong>Next:</strong> deploy, wire the content, add tests, accessibility and image work, fix logo contrast, prop docs.</p>
+    </template>
+  </section>
+
+  <!-- ============================================================ 16 · CLOSING -->
+  <section class="slide slide--deep closing"
+           data-title="Postmortem and thanks"
+           data-section="05 · Retrospective"
+           data-start="5:45" data-end="6:00">
+    <div class="content">
+      <div class="closing-grid">
+        <div>
+          <p class="chapter">05 · Retrospective</p>
+          <h2>Postmortem<br>&amp; next run.</h2>
+          <p class="thanks">What shipped, what went well, what didn't, and the five fixes I'm carrying into Milestone 5. The full write-up is in the repo.</p>
+          <div class="signature">
+            <span class="sig-rule"></span>
+            <div>
+              <div class="name">Terry Biesboer</div>
+              <div class="role">Web Development · WDV 349</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <a class="postmortem" href="../docs/Postmortem.md">
+            <div class="pm-label">Read the postmortem</div>
+            <div class="pm-title">Milestone 4<br>Postmortem</div>
+            <div class="pm-copy">What shipped · what went well · what didn't · limitations · five next steps</div>
+            <div class="pm-arrow">↗</div>
+          </a>
+          <div class="link-stack">
+            <div class="link-row"><span>Postmortem</span><a href="../docs/Postmortem.md">docs/Postmortem.md</a></div>
+            <div class="link-row"><span>Repository</span><a href="https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry">github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry</a></div>
+            <div class="link-row"><span>App</span><b>dev/portfolio/</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-footer">
+      <span>Lindbergh Ultimate · Milestone 4</span>
+      <span class="num">16</span>
+    </footer>
+
+    <template class="notes">
+      <p><strong>5:45–6:00 · 15 sec.</strong> The postmortem is in docs/Postmortem.md: what shipped, what went well, what didn't, limitations, and five next steps. The repo link is here too.</p>
+      <p><strong>Close:</strong> "That's the alpha. Thank you — I'm happy to take questions."</p>
+    </template>
+  </section>
+
+</div>
+
+<!-- ------------------------------------------------------------------ HUD -->
+<div class="hud" id="hud">
+  <button id="prev" type="button" aria-label="Previous slide">‹</button>
+  <span class="counter" id="counter">01 / 16</span>
+  <button id="next" type="button" aria-label="Next slide">›</button>
+  <span class="divider"></span>
+  <span class="section" id="hudSection">00 · Title</span>
+  <span class="divider"></span>
+  <span class="clock" id="clock">0:00</span>
+  <span class="divider"></span>
+  <button id="notesBtn" type="button" aria-label="Toggle speaker notes">N</button>
+  <button id="indexBtn" type="button" aria-label="Open slide index">G</button>
+  <button id="fsBtn" type="button" aria-label="Fullscreen">F</button>
+  <span class="hint">← → · N notes · G index</span>
+</div>
+
+<div class="progress"><i id="progressBar"></i></div>
+
+<aside class="notes-panel" id="notesPanel" aria-live="polite">
+  <div class="notes-top">
+    <span class="label">Speaker notes</span>
+    <span class="timing" id="notesTiming"></span>
+  </div>
+  <div class="notes-body" id="notesBody"></div>
+</aside>
+
+<div class="index-panel" id="indexPanel">
+  <div class="index-card">
+    <div class="index-head">
+      <h2>Run of show</h2>
+      <span>Click a slide · Esc to close</span>
+    </div>
+    <div class="index-list" id="indexList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied link</div>
+
+<script>
+(() => {
+  const stage = document.getElementById("stage");
+  const hud = document.getElementById("hud");
+  const slides = [...document.querySelectorAll(".slide")];
+  const counter = document.getElementById("counter");
+  const hudSection = document.getElementById("hudSection");
+  const progressBar = document.getElementById("progressBar");
+  const clock = document.getElementById("clock");
+  const notesPanel = document.getElementById("notesPanel");
+  const notesBody = document.getElementById("notesBody");
+  const notesTiming = document.getElementById("notesTiming");
+  const indexPanel = document.getElementById("indexPanel");
+  const indexList = document.getElementById("indexList");
+  const toast = document.getElementById("toast");
+  let current = 0;
+  let notesOpen = false;
+  let indexOpen = false;
+  let timerRunning = false;
+  let elapsed = 0;
+  let started = false;
+  let lastTick = 0;
+  let toastTimer = null;
+  let hudTimer = null;
+
+  // ------------------------------------------------------------ hud auto-hide
+  function wakeHud() {
+    hud.classList.remove("is-idle");
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(() => {
+      if (!notesOpen && !indexOpen) hud.classList.add("is-idle");
+    }, 2600);
+  }
+  window.addEventListener("pointermove", wakeHud, { passive: true });
+  window.addEventListener("pointerdown", wakeHud, { passive: true });
+  window.addEventListener("keydown", wakeHud);
+  wakeHud();
+
+  // ------------------------------------------------------------ scale stage
+  function fit() {
+    const scale = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  window.addEventListener("resize", fit);
+  fit();
+
+  // ------------------------------------------------------------ timer
+  function fmt(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${String(s).padStart(2, "0")}`;
+  }
+  function tick(now) {
+    if (timerRunning && lastTick) {
+      elapsed += (now - lastTick) / 1000;
+    }
+    lastTick = now;
+    clock.textContent = fmt(elapsed);
+    const active = slides[current];
+    const end = active?.dataset.end || "6:00";
+    const [m, s] = end.split(":").map(Number);
+    const target = m * 60 + s;
+    clock.classList.toggle("over", elapsed > target + 2);
+    if (timerRunning) requestAnimationFrame(tick);
+  }
+  function startTimer() {
+    if (started) return;
+    started = true;
+    timerRunning = true;
+    lastTick = 0;
+    requestAnimationFrame(tick);
+  }
+  function toggleTimer() {
+    if (!started) { startTimer(); return; }
+    timerRunning = !timerRunning;
+    lastTick = 0;
+    if (timerRunning) requestAnimationFrame(tick);
+    showToast(timerRunning ? "Clock running" : "Clock paused");
+  }
+  function resetTimer() {
+    elapsed = 0; started = false; timerRunning = false; lastTick = 0;
+    clock.textContent = "0:00"; clock.classList.remove("over");
+    showToast("Clock reset");
+  }
+
+  // ------------------------------------------------------------ nav
+  function renderNotes() {
+    const slide = slides[current];
+    const template = slide.querySelector("template.notes");
+    notesBody.innerHTML = template ? template.innerHTML : "<p>No notes for this slide.</p>";
+    notesTiming.textContent = `${slide.dataset.start || "0:00"}–${slide.dataset.end || "6:00"} · slide ${String(current + 1).padStart(2, "0")} of ${slides.length}`;
+  }
+  function go(next) {
+    const target = Math.max(0, Math.min(slides.length - 1, next));
+    if (target === current) return;
+    slides[current].classList.remove("is-active");
+    slides[target].classList.add("is-active");
+    current = target;
+    counter.textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    hudSection.textContent = slides[current].dataset.section || "";
+    progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+    history.replaceState(null, "", `#slide-${current + 1}`);
+    renderNotes();
+    if (!started) startTimer();
+  }
+  function next() { go(current + 1); }
+  function prev() { go(current - 1); }
+
+  document.getElementById("next").addEventListener("click", next);
+  document.getElementById("prev").addEventListener("click", prev);
+  document.getElementById("fsBtn").addEventListener("click", toggleFullscreen);
+  document.getElementById("notesBtn").addEventListener("click", toggleNotes);
+  document.getElementById("indexBtn").addEventListener("click", toggleIndex);
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  }
+  function toggleNotes(force) {
+    notesOpen = force === undefined ? !notesOpen : force;
+    notesPanel.classList.toggle("open", notesOpen);
+  }
+  function toggleIndex(force) {
+    indexOpen = force === undefined ? !indexOpen : force;
+    indexPanel.classList.toggle("open", indexOpen);
+  }
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.target.matches("input, textarea, select")) return;
+    const key = event.key;
+    if (key === "ArrowRight" || key === "PageDown" || key === " " || key === "ArrowDown") {
+      event.preventDefault(); next();
+    } else if (key === "ArrowLeft" || key === "PageUp" || key === "ArrowUp") {
+      event.preventDefault(); prev();
+    } else if (key === "Home") {
+      event.preventDefault(); go(0);
+    } else if (key === "End") {
+      event.preventDefault(); go(slides.length - 1);
+    } else if (key.toLowerCase() === "f") {
+      toggleFullscreen();
+    } else if (key.toLowerCase() === "n") {
+      toggleNotes();
+    } else if (key.toLowerCase() === "g") {
+      toggleIndex();
+    } else if (key.toLowerCase() === "t") {
+      toggleTimer();
+    } else if (key.toLowerCase() === "r") {
+      resetTimer();
+    } else if (key === "Escape") {
+      toggleNotes(false); toggleIndex(false);
+    } else if (/^[1-9]$/.test(key)) {
+      go(Number(key) - 1);
+    }
+  });
+
+  // ------------------------------------------------------------ index
+  slides.forEach((slide, index) => {
+    const item = document.createElement("a");
+    item.href = `#slide-${index + 1}`;
+    item.className = "index-item";
+    item.innerHTML = `<span class="n">${String(index + 1).padStart(2, "0")}</span>
+      <span class="t">${slide.dataset.title || "Slide"}</span>
+      <span class="s">${slide.dataset.start || ""}–${slide.dataset.end || ""}</span>`;
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      go(index);
+      toggleIndex(false);
+    });
+    indexList.appendChild(item);
+  });
+
+  // ------------------------------------------------------------ boot
+  renderNotes();
+  const hash = window.location.hash.match(/slide-(\d+)/);
+  if (hash) {
+    const index = Math.max(0, Math.min(slides.length - 1, Number(hash[1]) - 1));
+    slides[0].classList.remove("is-active");
+    slides[index].classList.add("is-active");
+    current = index;
+    counter.textContent = `${String(current + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+    hudSection.textContent = slides[current].dataset.section || "";
+    progressBar.style.width = `${((current + 1) / slides.length) * 100}%`;
+    renderNotes();
+  } else {
+    progressBar.style.width = `${(1 / slides.length) * 100}%`;
+  }
+})();
+</script>
+</body>
+</html>

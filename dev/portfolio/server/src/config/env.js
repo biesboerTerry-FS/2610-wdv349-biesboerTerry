@@ -32,7 +32,7 @@ const envSchema = z.object({
 	RATE_LIMIT_MAX: z.coerce.number().int().positive().default(300),
 	PUBLIC_RATE_LIMIT_MAX: z.coerce.number().int().positive().default(30),
 	LOG_FORMAT: z.string().default("dev"),
-	SEED_ADMIN_EMAIL: z.string().email().default("admin@lindberghultimate.com"),
+	SEED_ADMIN_EMAIL: z.string().email().default("admin@example.com"),
 	SEED_ADMIN_PASSWORD: z.string().min(8).default("ChangeMe123!"),
 	SEED_DEMO_DATA: booleanFromString.default(false),
 });

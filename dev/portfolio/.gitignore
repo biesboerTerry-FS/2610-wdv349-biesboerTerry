@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+.vite/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa
+id_ed25519
+.npmrc
+secrets/
+secret/
+
+# Archives and local data
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.bak
+
+# Logs and caches
+*.log
+npm-debug.log*
+.eslintcache
+*.tsbuildinfo
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+.vercel

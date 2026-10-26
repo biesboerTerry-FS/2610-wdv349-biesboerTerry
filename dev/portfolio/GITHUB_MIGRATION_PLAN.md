@@ -1,14 +1,48 @@
-# GitHub Migration Plan
+# GitHub Migration Plan (Historical)
+
+> **Status (Milestone 4):** The Lindbergh Ultimate app now lives at
+> `dev/portfolio` inside the course repository. The duplicate legacy frontend
+> folder has been removed. Use the root `README.md` and `dev/README.md` for the
+> current structure and workflow. This document is retained as a historical
+> checklist for extracting the app into a clean standalone repository.
 
 Goal: move the Lindbergh Ultimate project into a clean folder and publish it to
 GitHub without committing dependencies, build output, or secrets.
 
-The project is **not currently a Git repository**. The commands below create a
-new repository from scratch.
+The commands below assume you are creating a new repository from scratch. They
+are optional and are not required for the current course repository.
 
 > **Safety first:** `server/.env` contains your real Atlas connection string.
 > It is already ignored by Git, but do not copy it into a public place or paste
 > it into a commit. If a secret is ever committed, rotate it immediately.
+
+---
+
+## Current repository structure
+
+```text
+2610-wdv349-biesboerTerry/
+├── README.md
+├── docs/
+│   ├── log.md
+│   ├── logs/
+│   ├── research/
+│   ├── designs/
+│   └── wires/
+└── dev/
+    ├── README.md
+    └── portfolio/
+        ├── src/              React frontend
+        ├── public/           Favicons and static files
+        ├── server/           Express + MongoDB API
+        ├── package.json
+        ├── vite.config.js
+        ├── README.md
+        └── .gitignore
+```
+
+The app is a normal directory, not a Git submodule. The old legacy frontend
+folder is no longer part of the repository.
 
 ---
 
@@ -42,20 +76,22 @@ If you do not have Homebrew, create the repository in the GitHub web UI instead
 
 ---
 
-## 1. Set the old and new paths
+## 1. Set the legacy source and clean-copy paths
 
-Choose the new location. The example uses `~/git/lindbergh-ultimate`; change it
-if you prefer a different folder name.
+This step is only needed if you are extracting the app into a standalone
+repository. For the current course repository, the app is already at
+`dev/portfolio`.
 
 ```bash
-OLD="$HOME/git/lindberghUltimateSite/lindberghUltimateFrisbee"
-NEW="$HOME/git/lindbergh-ultimate"
+# Optional legacy source (only if it still exists)
+OLD="/path/to/legacy/lindbergh-ultimate-source"
+NEW="/path/to/new/lindbergh-ultimate-repo"
 
 echo "Old: $OLD"
 echo "New: $NEW"
 ```
 
-Confirm the old folder exists and the new one does **not** already contain a
+Confirm the legacy folder exists and the new one does **not** already contain a
 project:
 
 ```bash
@@ -124,7 +160,7 @@ PORT=5050
 MONGODB_URI=mongodb+srv://USER:PASSWORD@CLUSTER.mongodb.net/lindbergh_ultimate?retryWrites=true&w=majority
 MONGODB_DB_NAME=lindbergh_ultimate
 JWT_SECRET=replace-with-a-long-random-string
-SEED_ADMIN_EMAIL=admin@lindberghultimate.com
+SEED_ADMIN_EMAIL=admin@example.com
 SEED_ADMIN_PASSWORD=ChangeMe123!
 CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174
 ```
@@ -233,7 +269,7 @@ git ls-files -z | xargs -0 du -h | sort -h | tail -20
 
 The remaining images in `ASSET_MAP.md` are large but intentional. The duplicate
 and unused gallery assets have already been removed; if you want a smaller
-repository, compress `circle.png`, `dave.png`, `welcome.png`, and `swag.png`
+repository, compress `circle.png`, `booster-3.png`, `welcome.png`, and `swag.png`
 before running `git add .`.
 
 ---
@@ -521,9 +557,9 @@ provider uses static outbound IPs.
 ## Command cheat sheet
 
 ```bash
-# 1. Paths
-OLD="$HOME/git/lindberghUltimateSite/lindberghUltimateFrisbee"
-NEW="$HOME/git/lindbergh-ultimate"
+# 1. Paths (historical standalone-repo workflow)
+OLD="/path/to/legacy/lindbergh-ultimate-source"
+NEW="/path/to/new/lindbergh-ultimate-repo"
 
 # 2. Clean copy
 mkdir -p "$NEW"

@@ -36,7 +36,7 @@ const DIVISIONS = [
 		label: "Coaches",
 		awards: [
 			{
-				name: 'Coach of the Year — Kristina "T" Gu',
+				name: 'Coach of the Year — Taylor "T" Quinn',
 				years: [2023],
 			},
 		],
@@ -46,15 +46,15 @@ const DIVISIONS = [
 		label: "Players",
 		awards: [
 			{
-				name: "Heart of the Lyons — Maggie O'Brien",
+				name: "Heart of the Lyons — Nina Alvarez",
 				years: [2019],
 			},
 			{
-				name: "Heart of the Lyons — Abby Deeter",
+				name: "Heart of the Lyons — Elena Whitfield",
 				years: [2024],
 			},
 			{
-				name: "Heart of the Lyons — Karen Bose",
+				name: "Heart of the Lyons — Maya Patel",
 				years: [2025],
 			},
 		],

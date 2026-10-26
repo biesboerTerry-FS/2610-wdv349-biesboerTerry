@@ -19,6 +19,9 @@ and the Admin Panel at `/admin`.
 
 ## Repository layout
 
+This app lives at `dev/portfolio` in the course repository. The paths below are
+relative to this folder.
+
 ```text
 .
 ├── src/                    React frontend
@@ -35,7 +38,7 @@ and the Admin Panel at `/admin`.
 │   ├── src/seed/           Seed data and admin seed
 │   └── README.md           Backend details
 ├── ASSET_MAP.md            Every image, its page/section, and asset issues
-├── GITHUB_MIGRATION_PLAN.md  Move + publish checklist
+├── GITHUB_MIGRATION_PLAN.md  Historical migration checklist
 └── index.html
 ```
 
@@ -91,14 +94,10 @@ The API allows both local ports, plus their `127.0.0.1` variants, by default.
 
 ## Admin Panel
 
-One administrator account manages the database:
-
-| Email | Password |
-| --- | --- |
-| `admin@lindberghultimate.com` | `ChangeMe123!` |
-
-The credentials come from `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` in
-`server/.env`. **Change the password and `JWT_SECRET` before deploying.**
+One administrator account manages the database. The email and password come
+from `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` in `server/.env`. The defaults
+in `server/.env.example` are placeholders; **change the password and
+`JWT_SECRET` before deploying.**
 
 `npm run seed` creates or refreshes the admin account. Use
 `npm run seed:admin` if you only want to reset the login without touching site
@@ -177,20 +176,19 @@ See [`ASSET_MAP.md`](./ASSET_MAP.md) for:
 - Unused files, duplicates, misnamed assets, and large images to optimize.
 - The favicon setup and unused browser icons.
 
-The old `index.html` favicon reference pointed to a missing
-`src/assets/lindberghUltimate.png`; it now uses the PNG/ICO files in `public/`.
+The old `index.html` favicon reference pointed to a missing source image; it
+now uses the PNG/ICO files in `public/`.
 
-## Moving the project and pushing to GitHub
+## Repository status
 
-The project is not currently a Git repository. See
-[`GITHUB_MIGRATION_PLAN.md`](./GITHUB_MIGRATION_PLAN.md) for a step-by-step
-plan with commands to:
+This app is part of the course repository at `dev/portfolio`. It is a normal
+directory, not a Git submodule. See the root [`README.md`](../../README.md) for
+the repository overview and
+[`GITHUB_MIGRATION_PLAN.md`](./GITHUB_MIGRATION_PLAN.md) for historical
+migration notes.
 
-1. Move/copy the project to a new folder without `node_modules`, `dist`, or
-   secrets.
-2. Initialize Git and make the first commit.
-3. Create a GitHub repository and push.
-4. Verify the push and re-enable local development.
+Do not commit `node_modules`, `dist`, `.env`, `portfolio.zip`, or generated
+assets. The root and app-level `.gitignore` files cover those paths.
 
 ## Troubleshooting
 
@@ -241,3 +239,17 @@ lsof -nP -iTCP:5050 -sTCP:LISTEN
 - Use HTTPS for the API.
 - Compress the large images listed in `ASSET_MAP.md`.
 - Review the production notes in [`server/README.md`](./server/README.md).
+
+### Vercel deployment
+
+The frontend and API are separate Vercel projects:
+
+- Frontend: `lindberghultimatefrisbee`
+- API: `fast-cyclone-ney3302`
+- Frontend URL: <https://lindberghultimatefrisbee-terry-biesboers-projects.vercel.app>
+- API URL: <https://fast-cyclone-ney3302.tmp.now>
+
+The frontend's production `VITE_API_URL` is configured in Vercel as
+`https://fast-cyclone-ney3302.tmp.now/api`. The API still requires its
+production environment variables before database-backed routes can respond:
+see [`server/README.md`](./server/README.md#vercel-api-deployment).

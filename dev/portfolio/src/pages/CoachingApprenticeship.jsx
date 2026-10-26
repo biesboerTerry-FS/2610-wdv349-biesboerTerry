@@ -233,7 +233,7 @@ const CoachingApprenticeship = () => {
 					</h2>
 					<p className="mt-3 leading-relaxed">
 						Interested applicants should complete the program application
-						form. Questions can be directed to Loren “Coach Goods” Goodrich.
+						form. Questions can be directed to Casey “Coach Brooks” Brooks.
 					</p>
 					<div className="flex flex-wrap items-center gap-4 mt-5">
 						<a
@@ -246,11 +246,11 @@ const CoachingApprenticeship = () => {
 							<FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
 						</a>
 						<a
-							href="mailto:goodric3@gmail.com"
+							href="mailto:casey.brooks@example.com"
 							className="inline-flex items-center gap-2 font-bold underline-offset-4 hover:underline"
 						>
 							<FontAwesomeIcon icon={faEnvelope} aria-hidden="true" />
-							goodric3@gmail.com
+							casey.brooks@example.com
 						</a>
 					</div>
 				</div>

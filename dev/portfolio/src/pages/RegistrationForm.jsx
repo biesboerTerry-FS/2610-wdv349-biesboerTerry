@@ -292,7 +292,7 @@ const RegistrationForm = () => {
 							value={form.schoolEmail}
 							onChange={(e) => update("schoolEmail", e.target.value)}
 							className={inputClass}
-							placeholder="student@lindberghschools.ws"
+							placeholder="student@example.com"
 						/>
 						<FieldError errors={fieldErrors} name="schoolEmail" />
 					</div>

@@ -1,7 +1,9 @@
 import React from "react";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 import powerLunch from "../assets/Lindbergh Ultimate - Power Lunch.jpg";
 import fiveWeek from "../assets/5week.jpg";
+import lunch2 from "../assets/lunch2.png";
+import practice from "../assets/3.jpg";
 
 const PowerLunch = () => {
 	return (
@@ -39,12 +41,12 @@ const PowerLunch = () => {
 					</p>
 					<p>Wednesdays (year round) during A Lunch in the Green Gym.</p>
 					<p>
-						Got Questions? Reach out to Coach Gabby (
+						Got Questions? Reach out to Coach Morgan (
 						<a
-							href="mailto:gabriellalavezzi@lindberghschools.ws"
+							href="mailto:morgan.blake@example.com"
 							className="font-bold wrap-break-word text-lu-yellow hover:underline"
 						>
-							gabriellalavezzi@lindberghschools.ws
+							morgan.blake@example.com
 						</a>
 						)
 					</p>
@@ -57,7 +59,8 @@ const PowerLunch = () => {
 					{[
 						powerLunch,
 						fiveWeek,
-						circle,
+						lunch2,
+						practice,
 					].map((src, i) => (
 						<div
 							key={i}

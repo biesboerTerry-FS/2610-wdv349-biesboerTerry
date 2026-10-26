@@ -1,15 +1,15 @@
 import React from "react";
 import circle from "../assets/circle.png";
-import coachT from "../assets/coachT.jpg";
-import gabby from "../assets/gabby.jpg";
-import goods from "../assets/goods.jpg";
-import joe from "../assets/joe.jpg";
+import coachOne from "../assets/coach-1.jpg";
+import coachTwo from "../assets/coach-2.jpg";
+import coachThree from "../assets/coach-3.jpg";
+import coachFour from "../assets/coach-4.jpg";
 
 const COACHES = [
-	{ name: "Gabby Lavezzi", role: "Boys Ultimate Coach", image: gabby },
-	{ name: "Kristina \"T\" Gu", role: "Gxrls Team Coach", image: coachT },
-	{ name: "Loren \"Goods\" Goodrich", role: "Boys Team Coach", image: goods },
-	{ name: "Joe Corcoran", role: "Gxrls Team Coach", image: joe },
+	{ name: "Morgan Blake", role: "Boys Ultimate Coach", image: coachTwo },
+	{ name: "Taylor \"T\" Quinn", role: "Gxrls Team Coach", image: coachOne },
+	{ name: "Casey \"Brooks\" Brooks", role: "Boys Team Coach", image: coachThree },
+	{ name: "Jordan Ellis", role: "Gxrls Team Coach", image: coachFour },
 ];
 
 // PDFs and cover previews are stored in public/docs. Update these paths if the documents change.
@@ -145,10 +145,10 @@ const HighSchool = () => {
 					<p>
 						Have a question about the team? Email us at{" "}
 						<a
-							href="mailto:lindberghultimate@gmail.com"
+							href="mailto:contact@example.com"
 							className="font-bold text-lu-green hover:underline"
 						>
-							lindberghultimate@gmail.com
+							contact@example.com
 						</a>
 					</p>
 				</div>
