@@ -1,5 +1,5 @@
 import React from "react";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 
 const USA_ULTIMATE_MEMBERSHIP_URL = "https://www.usaultimate.org/membership/";
 

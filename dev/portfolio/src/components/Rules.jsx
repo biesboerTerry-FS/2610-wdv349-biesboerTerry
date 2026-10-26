@@ -1,6 +1,6 @@
 import React from "react";
 import rules from "../assets/ultimateRules.png";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 
 const Rules = () => {
 	// Common style for section wrappers to ensure they are centered but text is left-aligned

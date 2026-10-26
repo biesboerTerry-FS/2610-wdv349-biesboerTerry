@@ -1,5 +1,5 @@
 import React from "react";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 import coachOne from "../assets/coach-1.jpg";
 import coachTwo from "../assets/coach-2.jpg";
 import coachThree from "../assets/coach-3.jpg";
