@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+@theme {
+	--color-lu-green: #1c6a37;
+	--color-lu-dark: #123d24;
+	--color-lu-deep: #0d4a28;
+	--color-lu-yellow: #fbcc00;
+	--color-lu-cream: #f9f9f9;
+	--color-lu-ink: #1a1a1a;
+	--font-display: "Graduate", serif;
+	--font-roboto: "Roboto", "Helvetica Neue", Arial, sans-serif;
+	--font-body: Arial, Helvetica, sans-serif;
+	--font-sans: Arial, Helvetica, sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--color-lu-green);
+	font-family: var(--font-body);
+}
+
+@layer base {
+	:root {
+		--primary-green: var(--color-lu-green);
+	}
+
+	h1,
+	h2 {
+		font-family: var(--font-display);
+	}
+
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--font-roboto);
+	}
+
+	input,
+	textarea,
+	select {
+		font-family: var(--font-body);
+	}
+
+	button {
+		font-family: var(--font-roboto);
+	}
+}
+
+.gradient-top-25 {
+	background: linear-gradient(to bottom, black, transparent);
+	background-size: 100% 75%;
+	background-repeat: no-repeat;
+}
+
+/* Lindbergh-yellow glow around Booster Club portraits and open-seat avatars. */
+.booster-photo-shadow {
+	box-shadow:
+		0 0 0 1px rgb(251 204 0 / 45%),
+		0 4px 24px rgb(251 204 0 / 55%);
+}
+
+/* White Welcome heading with a Lindbergh-yellow outline. */
+.welcome-title {
+	color: #fff;
+	-webkit-text-stroke: 2px var(--color-lu-yellow);
+	paint-order: stroke fill;
+}
+
+/* White hero titles with a Lindbergh-yellow outline. */
+.hero-title {
+	color: #fff;
+	-webkit-text-stroke: 2px var(--color-lu-yellow);
+	paint-order: stroke fill;
+}
+
+/* Graduate section headings on green backgrounds. */
+.outline-title {
+	color: #fff;
+	-webkit-text-stroke: 1.5px var(--color-lu-yellow);
+	paint-order: stroke fill;
+}
+
+@media (min-width: 1024px) {
+	.hero-title {
+		-webkit-text-stroke: 3px var(--color-lu-yellow);
+	}
+
+	.outline-title {
+		-webkit-text-stroke: 2px var(--color-lu-yellow);
+	}
+}
+
+/* Soft, slowly drifting gradient behind the word cloud. The blurred organic
+   blobs create the wavy, random color movement without affecting readability. */
+.word-cloud-backdrop {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	border-radius: 1rem;
+	background:
+		radial-gradient(95% 125% at 8% 2%, rgba(64, 160, 95, 0.62) 0%, transparent 58%),
+		radial-gradient(105% 135% at 95% 96%, rgba(28, 106, 55, 0.88) 0%, transparent 62%),
+		linear-gradient(135deg, #061f12 0%, #1c6a37 50%, #0a2f1a 100%);
+	background-size: 160% 160%;
+	animation: word-cloud-base-shift 28s ease-in-out infinite alternate;
+}
+
+.word-cloud-blob {
+	position: absolute;
+	display: block;
+	border-radius: 47% 53% 62% 38% / 42% 48% 52% 58%;
+	filter: blur(42px) saturate(1.2);
+	mix-blend-mode: screen;
+	opacity: 0.65;
+	will-change: transform;
+	animation: word-cloud-drift 24s ease-in-out infinite alternate;
+}
+
+.word-cloud-blob--yellow {
+	width: 60%;
+	height: 70%;
+	left: -9%;
+	top: -14%;
+	background: rgba(251, 204, 0, 0.34);
+	animation-duration: 28s;
+}
+
+.word-cloud-blob--emerald {
+	width: 68%;
+	height: 80%;
+	right: -12%;
+	bottom: -20%;
+	background: rgba(73, 180, 110, 0.44);
+	animation-duration: 34s;
+	animation-delay: -11s;
+}
+
+.word-cloud-blob--cream {
+	width: 44%;
+	height: 50%;
+	left: 34%;
+	top: 28%;
+	background: rgba(249, 249, 249, 0.14);
+	opacity: 0.5;
+	animation-duration: 22s;
+	animation-delay: -7s;
+}
+
+.word-cloud-vignette {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(
+		ellipse at 50% 45%,
+		transparent 38%,
+		rgba(3, 18, 10, 0.38) 100%
+	);
+}
+
+@keyframes word-cloud-base-shift {
+	from {
+		background-position: 0% 0%;
+	}
+	to {
+		background-position: 100% 100%;
+	}
+}
+
+@keyframes word-cloud-drift {
+	0% {
+		transform: translate3d(-8%, -4%, 0) rotate(-10deg) scale(1.03);
+	}
+	45% {
+		transform: translate3d(7%, 8%, 0) rotate(8deg) scale(1.14);
+	}
+	100% {
+		transform: translate3d(-3%, 12%, 0) rotate(16deg) scale(1.08);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.word-cloud-backdrop,
+	.word-cloud-blob {
+		animation: none;
+	}
+}
