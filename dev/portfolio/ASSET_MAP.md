@@ -3,7 +3,7 @@
 Last reviewed: **2026-10-25**
 Scope: every image imported by `src/**/*.jsx`, browser icons referenced by `index.html`, hosted media, PDFs and PDF previews in `public/docs/`, and unused files in `src/assets/` and `public/`.
 
-> **Dummy content notice:** all people, names, email addresses, phone numbers, and portraits in this project are fictional. Photos that showed identifiable coaches, players, families, or students have been replaced with generated placeholder graphics. The PDFs in `public/docs/` were regenerated as sample documents.
+> **Dummy content notice:** all people, names, email addresses, phone numbers, and portraits displayed in the public UI are fictional. Photos that showed identifiable coaches, players, families, or students were replaced with generated placeholder graphics. The original photos are archived under `src/assets/legacy/` and are not imported by any page. The PDFs in `public/docs/` were regenerated as sample documents.
 
 Use this as the source of truth when checking whether an image name matches the page or section that displays it.
 
@@ -163,11 +163,36 @@ These files are **not imported anywhere** in the current React code. Keep the on
 
 ---
 
+## Restored legacy photos (unused)
+
+The original coach and booster photos were restored under `src/assets/legacy/`
+with generic filenames. They are **not imported by any page**; the public site
+continues to use the anonymized avatars listed above. See
+[`src/assets/legacy/README.md`](src/assets/legacy/README.md) for the restoration
+and redaction notes.
+
+| Preview | File | Size | Notes |
+| --- | --- | --- | --- |
+| <img src="src/assets/legacy/coach-1.jpg" width="120" alt="Restored coach photo"> | `src/assets/legacy/coach-1.jpg` | 1206×800 · 239 KB | Cropped to remove clipboard papers. |
+| <img src="src/assets/legacy/coach-2.jpg" width="120" alt="Restored coach photo"> | `src/assets/legacy/coach-2.jpg` | 545×545 · 92 KB | Unused original photo. |
+| <img src="src/assets/legacy/coach-3.jpg" width="120" alt="Restored coach photo"> | `src/assets/legacy/coach-3.jpg` | 946×946 · 169 KB | Unused original photo. |
+| <img src="src/assets/legacy/booster-1.png" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-1.png` | 1078×1078 · 1.7 MB | Unused original photo. |
+| <img src="src/assets/legacy/booster-2.jpg" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-2.jpg` | 1280×1280 · 409 KB | Unused original photo. |
+| <img src="src/assets/legacy/booster-3.jpg" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-3.jpg` | 321×321 · 24 KB | Unused original photo. |
+| <img src="src/assets/legacy/booster-4.jpg" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-4.jpg` | 1280×1280 · 343 KB | Unused original photo. |
+| <img src="src/assets/legacy/booster-5.jpg" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-5.jpg` | 1280×750 · 107 KB | Cropped to remove the “COACH JOE” clipboard label. |
+| <img src="src/assets/legacy/booster-6.jpg" width="120" alt="Restored booster photo"> | `src/assets/legacy/booster-6.jpg` | 1280×1280 · 261 KB | Unused original photo. |
+
+> These are real people. Confirm consent and intended use before publishing the
+> repository or wiring the files into a public page.
+
+---
+
 ## Notes on anonymization
 
 - Real coach, booster, parent, and player names were replaced with fictional names throughout the React pages, seed data, and PDFs.
 - Real email addresses were replaced with `example.com` addresses.
-- Real portrait and group photos were replaced with generated monogram avatars and field/disc placeholder graphics.
+- Real portrait and group photos were replaced with generated monogram avatars and field/disc placeholder graphics in the public UI. The original photos are archived under `src/assets/legacy/` for reference and are not displayed.
 - The two PDFs in `public/docs/` and the duplicate season-letter PDF in `src/assets/` were regenerated as sample documents with “SAMPLE DOCUMENT - DUMMY DATA” footers.
 - The unused `src/assets/Join Sports You.pdf` invitation was sanitized: the real access code and QR code were replaced with `SAMPLE-CODE` and a dummy QR grid.
 - The SportsYou access code in `src/pages/SportsYou.jsx` and `server/src/seed/seedData.js` is now `SAMPLE-CODE`.

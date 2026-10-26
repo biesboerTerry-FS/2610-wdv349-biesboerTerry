@@ -9,6 +9,12 @@ Use it for the following:
 - Prepare a Project Proposal: **ProjectProposal.md**
 - Propose your Tech Stack for the Capstone/Final Project: **TechStack.md**
 
+## Milestone 4
+
+- Project postmortem: **Postmortem.md**
+- Showcase: record a short walkthrough of the public site, API, forms, and Admin
+  Panel, then submit the link with the postmortem.
+
 ## Weekly
 
 - Maintain a weekly log file: **log.md**

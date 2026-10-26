@@ -175,6 +175,7 @@ See [`ASSET_MAP.md`](./ASSET_MAP.md) for:
 - High School coach-photo mismatches and Middle School/Media image reuse.
 - Unused files, duplicates, misnamed assets, and large images to optimize.
 - The favicon setup and unused browser icons.
+- The restored legacy photos under `src/assets/legacy/` (unused by the public UI).
 
 The old `index.html` favicon reference pointed to a missing source image; it
 now uses the PNG/ICO files in `public/`.
