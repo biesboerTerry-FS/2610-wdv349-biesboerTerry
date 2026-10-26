@@ -2,16 +2,16 @@
 
 ## ⚙️ Overview
 
-Transitioned into detailed technical planning and design prototyping for Milestone 3. Focused on breaking down UI designs into modular component hierarchies, defining robust database models with strict validation rules, and outlining REST API endpoints using GitHub Issues and project boards.
+Transitioned from high-level prototype planning into active front-end component creation. Established initial React component structures, defined prop types with mock data to simulate API responses, and organized feature branch workflows for upcoming MVP routing and integration.
 
 ## 🌵 Challenges
 
-Balancing complex state management requirements across multiple views while ensuring clean separation of concerns between front-end React components and backend routing logic.
+Balancing strict prop type validation with flexible mock data structures required careful iteration to ensure components rendered smoothly without throwing errors before backend API integration was fully wired up.
 
 ## 🏆 Accomplishments
 
-Successfully organized project tasks using GitHub issues and milestones, structured scalable data schemas, and established a clean feature-branch and pull-request workflow toward staging.
+Successfully set up component-driven architecture files, updated GitHub project boards and milestones, and maintained disciplined feature-branch workflows while merging initial interface components into the development branch.
 
 ## 🔮 Next Steps
 
-Begin active implementation of core component code based on the refined prototype views and connect front-end forms to newly created API endpoints.
+Complete the app click-through by linking all core pages and routes together. Prepare staging environment configurations and review build logs in preparation for Milestone 4 deployment testing.

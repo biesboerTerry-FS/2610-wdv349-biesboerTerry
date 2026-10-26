@@ -45,3 +45,4 @@ Documenting the core design patterns used for buttons, navigation elements, and 
 
 ** Calculated Results for the Palette
 [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/): Applied reference standards used to verify contrast ratios between Lindbergh Green (#005A36), Flyer Gold (#FFC72C), and standard text elements.
+git
