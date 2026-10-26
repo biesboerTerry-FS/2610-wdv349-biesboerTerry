@@ -461,7 +461,7 @@ is reused by [`src/serverless.js`](./src/serverless.js), while local development
 continues to use `src/index.js`.
 
 The current Vercel project is `fast-cyclone-ney3302`, deployed at
-<https://fast-cyclone-ney3302.tmp.now>. Add these variables in the Vercel
+<https://fast-cyclone-ney3302-terry-biesboers-projects.vercel.app>. Add these variables in the Vercel
 project's **Settings > Environment Variables** for the **Production**
 environment:
 
