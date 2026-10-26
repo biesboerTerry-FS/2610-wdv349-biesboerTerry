@@ -1,15 +1,21 @@
-# Docs.
+# Docs
 
 This folder is for miscellaneous documentation.
 
 Use it for the following:
 
-### Week 1
+## Week 1
 
 - Prepare a Project Proposal: **ProjectProposal.md**
 - Propose your Tech Stack for the Capstone/Final Project: **TechStack.md**
 
-### Weekly
+## Milestone 4
+
+- Project postmortem: **Postmortem.md**
+- Showcase: record a short walkthrough of the public site, API, forms, and Admin
+  Panel, then submit the link with the postmortem.
+
+## Weekly
 
 - Maintain a weekly log file: **log.md**
 - Regularly Update a Design log also, as work develops: See designs/**README.md**
