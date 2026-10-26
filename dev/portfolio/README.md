@@ -172,10 +172,10 @@ other non-seed data. Use `npm run seed:reset` when you want a clean refresh.
 See [`ASSET_MAP.md`](./ASSET_MAP.md) for:
 
 - Every used image and the page/section that displays it.
-- High School coach-photo mismatches and Middle School/Media image reuse.
+- Photo usage across High School, Booster Club, Media, Middle School, Power Lunch, and Families.
 - Unused files, duplicates, misnamed assets, and large images to optimize.
 - The favicon setup and unused browser icons.
-- The restored legacy photos under `src/assets/legacy/` (unused by the public UI).
+- The restored original program photos. Names and contact details remain fictional placeholders; confirm consent before publishing the repository.
 
 The old `index.html` favicon reference pointed to a missing source image; it
 now uses the PNG/ICO files in `public/`.

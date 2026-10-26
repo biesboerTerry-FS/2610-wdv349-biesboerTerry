@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 import wordCloud from "../assets/wordCloud.png";
+import spectatorGuide from "../assets/spectatorGuide.png";
 // Kept for reference: the interactive word cloud is replaced by the supplied image.
 // import WordCloud from "../components/WordCloud";
 
@@ -251,6 +252,14 @@ const Families = () => {
 						Ultimate Spectator Guide (rules, terms, safety, Spirit of the Game), visit USA
 						Ultimate.
 					</p>
+					<div className="overflow-hidden bg-white border-2 rounded-lg border-lu-yellow">
+						<img
+							src={spectatorGuide}
+							alt="USA Ultimate spectator guide excerpt with common terms and sideline behavior"
+							className="w-full h-auto"
+							loading="lazy"
+						/>
+					</div>
 					<Link
 						to="/usa-ultimate"
 						className="inline-block px-6 py-2 font-bold transition-colors rounded-full bg-lu-yellow text-lu-green hover:bg-lu-green hover:text-lu-yellow"

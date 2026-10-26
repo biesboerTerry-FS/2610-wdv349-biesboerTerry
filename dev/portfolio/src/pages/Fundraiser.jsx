@@ -3,7 +3,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
 import Supporters from "../components/Supporters";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
+import champions from "../assets/champions.jpg";
 
 const donationGoal = 2000;
 const amountRaised = 2026;
@@ -22,9 +23,12 @@ const Fundraiser = () => {
 				/>
 				<div className="relative flex flex-col items-center justify-center max-w-5xl gap-10 px-4 py-10 mx-auto sm:px-6 sm:py-16 md:flex-row">
 					<div className="flex justify-center w-full md:w-1/2">
-						<div className="flex items-center justify-center w-48 h-48 border-2 shadow-2xl rounded-xl bg-lu-cream border-lu-yellow">
-							{/* Placeholder for campaign image */}
-							<span className="text-sm text-lu-green">Image</span>
+						<div className="w-48 h-48 overflow-hidden border-2 shadow-2xl rounded-xl border-lu-yellow">
+							<img
+								src={champions}
+								alt="Lindbergh Ultimate team"
+								className="object-cover w-full h-full"
+							/>
 						</div>
 					</div>
 					<div className="flex flex-col items-start w-full md:w-1/2">

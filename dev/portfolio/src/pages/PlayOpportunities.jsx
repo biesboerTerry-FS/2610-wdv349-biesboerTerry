@@ -1,6 +1,6 @@
 import React from "react";
-import circle from "../assets/circle.png";
-import playOpportunities from "../assets/Lindbergh Ultimate - Play Opportunities.jpg";
+import circle from "../assets/circle.jpg";
+import groupme from "../assets/groupme.jpg";
 import slua from "../assets/slua.png";
 
 // Sample schedule – replace with Google Calendar embed URL or keep as list
@@ -84,7 +84,7 @@ const PlayOpportunities = () => {
 						<div
 							className="bg-center bg-cover aspect-video bg-lu-deep"
 							style={{
-								backgroundImage: `url(${playOpportunities})`,
+								backgroundImage: `url(${groupme})`,
 							}}
 						/>
 						<div className="p-6 text-center">

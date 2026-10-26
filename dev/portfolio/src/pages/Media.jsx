@@ -1,10 +1,17 @@
 import React from "react";
 import champions from "../assets/champions.jpg";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 import mediaImage from "../assets/Lindbergh Ultimate - Media.jpg";
 import gradesThreeToEight from "../assets/Lindbergh Ultimate - Grades 3-8.jpg";
 import playOpportunities from "../assets/Lindbergh Ultimate - Play Opportunities.jpg";
 import powerLunch from "../assets/Lindbergh Ultimate - Power Lunch.jpg";
+import fall3to5 from "../assets/fall3-5.jpg";
+import fallMiddleSchoolClub from "../assets/fallMiddleSchoolClub.jpg";
+import groupme from "../assets/groupme.jpg";
+import lunch1 from "../assets/lunch1.jpg";
+import lunch2 from "../assets/lunch2.png";
+import lunch3 from "../assets/lunch3.jpg";
+import practice from "../assets/3.jpg";
 
 const VIDEOS = [
 	{
@@ -39,7 +46,7 @@ const GALLERIES = [
 	},
 	{
 		title: "2025 SLUJ All Star Game",
-		image: mediaImage,
+		image: fall3to5,
 		link: "https://photos.google.com/share/AF1QipP2fDDJN_WgEab-p3JHDX-JuopK8Lyo3B6nM_JolkOGsIhhgr2XyfsKqnk5o_09uQ?key=elltR3gwcndzakQzODJyTFI3M3hIbGdqUktXRzNn",
 	},
 	{
@@ -54,32 +61,32 @@ const GALLERIES = [
 	},
 	{
 		title: "Flyers Ultimate 2023",
-		image: gradesThreeToEight,
+		image: fallMiddleSchoolClub,
 		link: "https://photos.google.com/share/AF1QipP-NpdnvI1Hz3fXfE8MG0ASZMUZNCul_GBUaK1rMnKkvEobK8XcHrE6Rmk3vZfBpQ?key=R0kwdE93b0NOQmZVVnRRUjNYWTBLWTFYM0owNHdB",
 	},
 	{
 		title: "2023 High School State Championship",
-		image: mediaImage,
+		image: groupme,
 		link: "https://photos.google.com/share/AF1QipOHQ45tAaX6yqGnZrZfJtzZTeOkH1CAbr7ETJINaBKivE7dsnuvUOUdXdB_4e0_oA?key=Skl4RjZCOFlDSWZiaFJ2MG9GcjJyN084cm9JU21n",
 	},
 	{
 		title: "Lady Flyers Ultimate 2022",
-		image: playOpportunities,
+		image: lunch1,
 		link: "https://photos.google.com/share/AF1QipO8cVHT1KOtX6k3ri3SA2iUvn84jHsGatvUjIA3-EhBWZbJBCkz11Gon7tROcwt_g?key=VmtTUmFyalBvVTRiMm9MTjR6T1JoMV9aMHM0eTV3",
 	},
 	{
 		title: "Lady Flyers Ultimate 2021 Season",
-		image: gradesThreeToEight,
+		image: lunch2,
 		link: "https://photos.google.com/share/AF1QipNuhbQF19n6IExhkScUoK1zgbiAZBc2QLr540rERR-C_XvMB9vfo8remXw1fd-qaQ?key=dVc4N0d5WmRwYzBlUUViUXhBZVdGV0ZlbHN2cjFB",
 	},
 	{
 		title: "Lindbergh Lady Flyers Ultimate Team History",
-		image: powerLunch,
+		image: lunch3,
 		link: "https://photos.google.com/share/AF1QipP5XpJmgSG4-JCqclVZqbMdwSn7lkO8ODqptLscH9ddH9kFFBC7vtCQ5TvtBMOZJQ?key=QzFFaTBoMmY2ZHllUFg1VS00dk1wbkhCbEJ1SE5B",
 	},
 	{
 		title: "Boys Flyers Ultimate 2021 Season",
-		image: "https://lh3.googleusercontent.com/pw/AP1GczNj9oZBGE2rewCGMV1-MDEiGV2O8MWkXRE7oHPQtxJpVD05sWUrfYl8mmm9Io4rp45NN5oKqHusiAOhPhxEaNZAKBj-2ca_3L6Xqsqb6j3ms92vG-Q=w1200",
+		image: practice,
 		link: "https://photos.google.com/share/AF1QipMVnKqJwpU0_651McEagsog4LuOPOfCUXQMZvymyY83xZb7cWpkVCREi4hsmDV28Q?key=bzVSd3oyMEF6S0VkVzlWTHg2NGdubUJiSUZieV9n",
 	},
 ];

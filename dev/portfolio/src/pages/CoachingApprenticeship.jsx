@@ -9,7 +9,7 @@ import {
 	faHandshake,
 	faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import circle from "../assets/circle.png";
+import circle from "../assets/circle.jpg";
 
 const APPLICATION_URL =
 	"https://docs.google.com/forms/d/e/1FAIpQLSdjlasSht6fT4fJvoSSswuruQmgSHlJ9sAM9O3EDOeHnWIPWg/closedform";

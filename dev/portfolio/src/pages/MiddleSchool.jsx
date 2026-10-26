@@ -1,15 +1,15 @@
 import React from "react";
-import circle from "../assets/circle.png";
-import gradesThreeToEight from "../assets/Lindbergh Ultimate - Grades 3-8.jpg";
+import circle from "../assets/circle.jpg";
+import fallMiddleSchoolClub from "../assets/fallMiddleSchoolClub.jpg";
+import fiveWeek from "../assets/5week.jpg";
 
 const MiddleSchool = () => {
 	return (
 		<div
 			className="min-h-screen bg-lu-green text-lu-cream"
 		>
-			{/* Banner: full-width image with "Middle School" overlay */}
+			{/* Banner: full-width program photo with "Middle School" overlay */}
 			<section className="relative flex items-center justify-center w-full overflow-hidden h-80 md:h-100 bg-lu-deep">
-				{/* Placeholder for banner image – replace src with your group photo */}
 				<div
 					className="absolute inset-0 bg-center bg-cover opacity-60"
 					style={{
@@ -42,7 +42,7 @@ const MiddleSchool = () => {
 						<div
 							className="bg-center bg-cover aspect-16/10 bg-lu-deep"
 							style={{
-								backgroundImage: `url(${gradesThreeToEight})`,
+								backgroundImage: `url(${fallMiddleSchoolClub})`,
 							}}
 						/>
 						<div className="flex flex-col flex-1 p-6 md:p-8">
@@ -79,7 +79,7 @@ const MiddleSchool = () => {
 						<div
 							className="bg-center bg-cover aspect-16/10 bg-lu-deep"
 							style={{
-								backgroundImage: `url(${gradesThreeToEight})`,
+								backgroundImage: `url(${fiveWeek})`,
 							}}
 						/>
 						<div className="flex flex-col flex-1 p-6 md:p-8">

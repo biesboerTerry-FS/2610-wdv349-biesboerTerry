@@ -51,7 +51,8 @@ realistic Milestone 4 scope:
 - Registration and interest forms connected to the API.
 - A single-admin panel for content and submission management.
 - MongoDB models, validation, seed scripts, and documented API routes.
-- An anonymized public UI that can be demonstrated safely.
+- An anonymized public UI (fictional names and contact data) with the original
+  program photos restored.
 
 The role-based multi-user dashboards, live weather, and map routing remain future
 work.
@@ -68,7 +69,8 @@ work.
   media, play opportunities, power lunch, families, booster club, USA Ultimate,
   fundraiser, interest form, registration, calendar, and SportsYou.
 - Reusable layout, navigation, footer, cards, galleries, and form components.
-- Placeholder/dummy content for people, contact details, and documents.
+- Fictional names and contact details, sample documents, and restored original
+  program photos.
 - A public `/admin/login` entry point for the administrator.
 
 ### Backend API
@@ -94,8 +96,9 @@ work.
 - `GITHUB_MIGRATION_PLAN.md` retained as historical migration context.
 - `.env.example` files for the frontend and server.
 - `.gitignore` rules for `.env`, `node_modules`, `dist`, archives, and OS files.
-- Restored legacy photos under `src/assets/legacy/` with generic filenames and
-  redactions where visible personal text appeared.
+- Restored original program photos to the public pages with generic filenames;
+  `coach-1.jpg` and `coach-4.jpg` were cropped to remove visible clipboard
+  text/name labels.
 
 ### Verification performed
 
@@ -148,10 +151,10 @@ verified before merge instead of relying on the original local state.
 
 ### Anonymization was handled deliberately
 
-Real names, emails, phone numbers, documents, access codes, and portraits were
-replaced or redacted in the tracked source. The public UI uses fictional data and
-placeholder avatars. Restored legacy photos are isolated as unused archival
-assets with a consent warning.
+Real names, emails, phone numbers, documents, and access codes were replaced or
+redacted in the tracked source. The public UI uses fictional names and contact
+data. The original program photos were restored to the public pages with generic
+filenames and two cropped portraits; confirm consent before publishing.
 
 ---
 
@@ -191,10 +194,10 @@ thousands of files.
 **Problem:** The original site included real names, contact details, portrait
 photos, PDFs, and a SportsYou access code.
 
-**Resolution:** I replaced public-facing people and contact data with fictional
-values, regenerated sample PDFs, sanitized the SportsYou code, and restored only
-the unique legacy photos with generic filenames. Two photos were cropped to
-remove visible clipboard text. The restored photos are not imported by any page.
+**Resolution:** I replaced public-facing names and contact data with fictional
+values, regenerated sample PDFs, sanitized the SportsYou code, and restored the
+original program photos with generic filenames. Two photos were cropped to remove
+visible clipboard text. The restored photos are now used on the public pages.
 
 **Lesson:** Treat content anonymization as a data migration, not a find-and-
 replace pass. Check filenames, EXIF, PDFs, screenshots, and image backgrounds.
@@ -250,8 +253,8 @@ local-only alpha is harder to demo and easier to break on another machine.
 | One admin role | Avoids multi-role auth complexity in the alpha | Does not yet deliver coach/player/parent dashboards |
 | JWT in `localStorage` | Simple SPA authentication | Requires careful XSS handling and logout/token expiry UX |
 | Generic admin CRUD from metadata | Covers many resources without duplicate code | Less tailored screens than purpose-built forms |
-| Placeholder public data | Safe demo and public repository | Less realistic showcase; real content must be reconnected later |
-| Legacy photos archived, not imported | Preserves originals without exposing them in the UI | Adds unused weight to the repository |
+| Fictional names and contact data | Safe demo and public repository | Less realistic showcase; real contact details must be reconnected later |
+| Original program photos restored | Puts the real program imagery back on the site | Requires consent and increases repository size |
 
 ---
 
@@ -264,9 +267,10 @@ local-only alpha is harder to demo and easier to break on another machine.
    handled on day one.
 3. **Deploy a walking skeleton early.** A live URL with one page and one API
    route would have exposed CORS, environment, and build issues much sooner.
-4. **Use synthetic data from the start.** Retrofitting anonymization across
-   React pages, seed data, PDFs, and images is slower and riskier than starting
-   with fake content.
+4. **Use synthetic names and contact data from the start.** Retrofitting
+   anonymization across React pages, seed data, and PDFs is slower and riskier
+   than starting with fake content. Keep real photos behind an explicit consent
+   check.
 5. **Keep pull requests small and descriptive.** Each PR should state the user
    problem, the change, the verification, and the follow-up. Stale PRs should be
    closed or retargeted immediately.
@@ -352,4 +356,5 @@ mocked, and what comes next. That gives the project a credible path forward.
 - App README: [`dev/portfolio/README.md`](../dev/portfolio/README.md)
 - Asset map: [`dev/portfolio/ASSET_MAP.md`](../dev/portfolio/ASSET_MAP.md)
 - Server README: [`dev/portfolio/server/README.md`](../dev/portfolio/server/README.md)
-- Legacy photo notes: [`dev/portfolio/src/assets/legacy/README.md`](../dev/portfolio/src/assets/legacy/README.md)
+- Photo restoration and postmortem PR #37: <https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/pull/37>
+- Milestone 4 issues: [#31](https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/issues/31), [#32](https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/issues/32), [#33](https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/issues/33), [#34](https://github.com/biesboerTerry-FS/2610-wdv349-biesboerTerry/issues/34)
