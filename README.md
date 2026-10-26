@@ -29,8 +29,7 @@ API configuration, seed data, Admin Panel access, and deployment notes.
 ## Status
 
 Milestone 4 — full-stack Alpha build. The app builds and lints cleanly; the
-deployment plan is documented in the app README and
-[`GITHUB_MIGRATION_PLAN.md`](./dev/portfolio/GITHUB_MIGRATION_PLAN.md).
+deployment plan is documented in the app README.
 
 ## Author
 
