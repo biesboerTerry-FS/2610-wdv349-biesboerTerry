@@ -247,9 +247,9 @@ The frontend and API are separate Vercel projects:
 - Frontend: `lindberghultimatefrisbee`
 - API: `fast-cyclone-ney3302`
 - Frontend URL: <https://lindberghultimatefrisbee-terry-biesboers-projects.vercel.app>
-- API URL: <https://fast-cyclone-ney3302.tmp.now>
+- API URL: <https://fast-cyclone-ney3302-terry-biesboers-projects.vercel.app>
 
 The frontend's production `VITE_API_URL` is configured in Vercel as
-`https://fast-cyclone-ney3302.tmp.now/api`. The API still requires its
+`https://fast-cyclone-ney3302-terry-biesboers-projects.vercel.app/api`. The API still requires its
 production environment variables before database-backed routes can respond:
 see [`server/README.md`](./server/README.md#vercel-api-deployment).

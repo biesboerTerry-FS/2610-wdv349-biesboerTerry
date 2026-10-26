@@ -479,7 +479,7 @@ After adding the variables, redeploy the API and seed the administrator against
 the production database. Do not commit these values or place them in
 `.env.example`.
 
-The frontend uses `https://fast-cyclone-ney3302.tmp.now/api` as its production
+The frontend uses `https://fast-cyclone-ney3302-terry-biesboers-projects.vercel.app/api` as its production
 `VITE_API_URL`, and is currently deployed at
 <https://lindberghultimatefrisbee-terry-biesboers-projects.vercel.app>. If
 either Vercel project receives a custom domain later, update both values to use
