@@ -1,5 +1,5 @@
-import { createApp } from "../app.js";
-import { connectDB } from "../config/db.js";
+import { createApp } from "../src/app.js";
+import { connectDB } from "../src/config/db.js";
 
 // Create the Express app once per lambda instance (module scope is cached
 // between warm invocations on Vercel).
