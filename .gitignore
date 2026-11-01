@@ -58,3 +58,5 @@ Thumbs.db
 
 ASSET_MAP.md
 GITHUB_MIGRATION_PLAN.md
+.vercel
+.env*
