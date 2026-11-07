@@ -43,6 +43,9 @@ export const changePassword = asyncHandler(async (req, res) => {
 	const { currentPassword, newPassword } = req.body;
 	const user = await User.findById(req.user.id).select("+passwordHash");
 	if (!user) throw ApiError.notFound("User not found");
+	if (!user.passwordHash) {
+		throw ApiError.badRequest("This account uses sign-in with Google/Apple and has no password to change.");
+	}
 
 	const matches = await user.comparePassword(currentPassword);
 	if (!matches) throw ApiError.badRequest("Current password is incorrect");

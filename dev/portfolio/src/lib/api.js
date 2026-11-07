@@ -11,6 +11,7 @@ const API_URL = (import.meta.env.VITE_API_URL || "http://127.0.0.1:5050/api").re
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOKEN_KEY = "lu-admin-token";
+const PUBLIC_TOKEN_KEY = "lu-public-token";
 
 export class ApiError extends Error {
 	constructor(message, { status = 0, details = [] } = {}) {
@@ -52,6 +53,31 @@ export function storeToken(token) {
 export function clearStoredToken() {
 	try {
 		window.localStorage.removeItem(TOKEN_KEY);
+	} catch {
+		// Ignore storage errors.
+	}
+}
+
+// Public visitor (OAuth) session — separate from the staff token.
+export function getStoredPublicToken() {
+	try {
+		return window.localStorage.getItem(PUBLIC_TOKEN_KEY);
+	} catch {
+		return null;
+	}
+}
+
+export function storePublicToken(token) {
+	try {
+		window.localStorage.setItem(PUBLIC_TOKEN_KEY, token);
+	} catch {
+		// Ignore storage errors.
+	}
+}
+
+export function clearStoredPublicToken() {
+	try {
+		window.localStorage.removeItem(PUBLIC_TOKEN_KEY);
 	} catch {
 		// Ignore storage errors.
 	}
@@ -173,4 +199,29 @@ export function deleteResource(resource, id) {
 
 export function runResourceAction(resource, id, action) {
 	return postJson(`/admin/${resource}/${id}/${action}`, {}, { token: getStoredToken() });
+}
+
+// --- Google / Apple OAuth (redirect flow via the API) ---
+
+export function fetchOAuthProviders() {
+	return getJson("/auth/oauth/providers");
+}
+
+export function fetchPublicMe(token = getStoredPublicToken()) {
+	return getJson("/auth/public/me", { token });
+}
+
+/**
+ * Build the API start URL for a provider. The API sets a state cookie and
+ * redirects to Google/Apple; after the callback it redirects back to
+ * `/auth/callback` with `#token=...&audience=...&returnTo=...`.
+ *
+ * @param {"google"|"apple"} provider
+ * @param {{ audience?: "admin"|"public", returnTo?: string }} options
+ */
+export function getOAuthStartUrl(provider, { audience = "public", returnTo } = {}) {
+	const query = new URLSearchParams();
+	query.set("audience", audience);
+	if (returnTo) query.set("returnTo", returnTo);
+	return `${API_URL}/auth/oauth/${provider}/start?${query.toString()}`;
 }

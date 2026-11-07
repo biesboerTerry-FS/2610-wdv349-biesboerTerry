@@ -9,6 +9,7 @@ import { errorHandler, notFound } from "./middleware/errorHandler.js";
 import publicRoutes from "./routes/public.js";
 import adminRoutes from "./routes/admin.js";
 import authRoutes from "./routes/auth.js";
+import oauthRoutes from "./routes/oauth.js";
 
 export function createApp() {
 	const app = express();
@@ -49,6 +50,7 @@ export function createApp() {
 	app.use("/api", globalLimiter);
 	app.use("/api", publicRoutes);
 	app.use("/api/auth", authRoutes);
+	app.use("/api/auth", oauthRoutes);
 	app.use("/api/admin", adminRoutes);
 
 	app.use(notFound);
