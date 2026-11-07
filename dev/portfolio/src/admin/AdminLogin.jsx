@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import ultimateLogoTransparent from "../assets/ultimateLogoTransparent.png";
 import { ApiError } from "../lib/api";
 import { useAdminAuth } from "./AdminAuthContext";
+import OAuthButtons from "../components/OAuthButtons";
 
 export default function AdminLogin() {
 	const { signIn, user, checking } = useAdminAuth();
@@ -20,6 +21,12 @@ export default function AdminLogin() {
 	useEffect(() => {
 		if (user) navigate(redirectTo, { replace: true });
 	}, [user, navigate, redirectTo]);
+
+	const queryError = useMemo(
+		() => new URLSearchParams(location.search).get("error"),
+		[location.search],
+	);
+	const displayError = errorMessage || queryError || "";
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -53,7 +60,7 @@ export default function AdminLogin() {
 		>
 			<div className="w-full max-w-md">
 				<div className="mb-8 text-center">
-					<span className="mx-auto mb-4 flex w-48 items-center justify-center rounded-2xl bg-lu-cream p-3 shadow-lg">
+					<span className="mx-auto mb-4 flex w-48 items-center justify-center rounded-2xl bg-lu-green p-3 shadow-lg">
 						<img
 							src={ultimateLogoTransparent}
 							alt="Lindbergh Ultimate"
@@ -65,68 +72,77 @@ export default function AdminLogin() {
 					</p>
 					<h1 className="font-display text-3xl font-bold uppercase">Admin Panel</h1>
 					<p className="mt-3 text-sm text-lu-cream/70">
-						Administrator access only. Sign in with the program admin account.
+						Administrator access only. Sign in with the program admin account or with an
+						authorized Google/Apple account.
 					</p>
 				</div>
 
-				<form
-					onSubmit={handleSubmit}
-					className="flex flex-col gap-5 rounded-2xl border border-lu-yellow/50 bg-white/10 p-6"
-				>
-					<div>
-						<label htmlFor="admin-email" className="mb-1 block font-body font-medium">
-							Email
-						</label>
-						<input
-							id="admin-email"
-							type="email"
-							autoComplete="username"
-							required
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							className={inputClass}
-							placeholder="admin@example.com"
-						/>
+				<div className="flex flex-col gap-5 rounded-2xl border border-lu-yellow/50 bg-white/10 p-6">
+					<OAuthButtons audience="admin" returnTo={redirectTo} variant="light" />
+
+					<div className="flex items-center gap-3 text-xs uppercase tracking-widest text-lu-cream/60">
+						<span className="h-px flex-1 bg-lu-cream/20" aria-hidden="true" />
+						<span>Email</span>
+						<span className="h-px flex-1 bg-lu-cream/20" aria-hidden="true" />
 					</div>
 
-					<div>
-						<label htmlFor="admin-password" className="mb-1 block font-body font-medium">
-							Password
-						</label>
-						<input
-							id="admin-password"
-							type="password"
-							autoComplete="current-password"
-							required
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							className={inputClass}
-							placeholder="••••••••"
-						/>
-					</div>
-
-					{status === "error" && errorMessage && (
-						<div
-							role="alert"
-							className="rounded-lg border border-lu-yellow bg-lu-yellow/10 px-4 py-3 text-sm"
-						>
-							{errorMessage}
+					<form onSubmit={handleSubmit} className="flex flex-col gap-5">
+						<div>
+							<label htmlFor="admin-email" className="mb-1 block font-body font-medium">
+								Email
+							</label>
+							<input
+								id="admin-email"
+								type="email"
+								autoComplete="username"
+								required
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								className={inputClass}
+								placeholder="admin@example.com"
+							/>
 						</div>
-					)}
 
-					<button
-						type="submit"
-						disabled={status === "submitting"}
-						className="rounded-full bg-lu-yellow px-6 py-3 font-bold text-lu-green transition-all hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
-					>
-						{status === "submitting" ? "Signing in…" : "Sign in"}
-					</button>
+						<div>
+							<label htmlFor="admin-password" className="mb-1 block font-body font-medium">
+								Password
+							</label>
+							<input
+								id="admin-password"
+								type="password"
+								autoComplete="current-password"
+								required
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								className={inputClass}
+								placeholder="••••••••"
+							/>
+						</div>
 
-					<p className="text-center text-xs text-lu-cream/60">
-						Admin credentials come from the server&apos;s SEED_ADMIN_EMAIL and
-						SEED_ADMIN_PASSWORD settings.
-					</p>
-				</form>
+						{(status === "error" || displayError) && displayError && (
+							<div
+								role="alert"
+								className="rounded-lg border border-lu-yellow bg-lu-yellow/10 px-4 py-3 text-sm"
+							>
+								{displayError}
+							</div>
+						)}
+
+						<button
+							type="submit"
+							disabled={status === "submitting"}
+							className="rounded-full bg-lu-yellow px-6 py-3 font-bold text-lu-green transition-all hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+						>
+							{status === "submitting" ? "Signing in…" : "Sign in"}
+						</button>
+
+						<p className="text-center text-xs text-lu-cream/60">
+							Admin credentials come from the server&apos;s SEED_ADMIN_EMAIL and
+							SEED_ADMIN_PASSWORD settings. OAuth sign-in requires the email to be in
+							ADMIN_OAUTH_ALLOWLIST or match SEED_ADMIN_EMAIL.
+						</p>
+					</form>
+				</div>
 
 				<p className="mt-6 text-center">
 					<a

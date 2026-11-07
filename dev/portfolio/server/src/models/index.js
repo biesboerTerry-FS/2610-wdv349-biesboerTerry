@@ -13,6 +13,7 @@ export { InterestSubmission } from "./InterestSubmission.js";
 export { MediaItem } from "./MediaItem.js";
 export { Parent } from "./Parent.js";
 export { Player } from "./Player.js";
+export { PublicUser } from "./PublicUser.js";
 export { Registration } from "./Registration.js";
 export { ScheduleEvent } from "./ScheduleEvent.js";
 export { Season } from "./Season.js";

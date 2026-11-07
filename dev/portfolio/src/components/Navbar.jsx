@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import ultimateLogoTransparent from "../assets/ultimateLogoTransparent.png";
+import { usePublicAuth } from "../auth/PublicAuthContext";
 
 const navLinkClass = ({ isActive }) =>
 	isActive
@@ -42,6 +43,7 @@ const Navbar = () => {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [highSchoolOpen, setHighSchoolOpen] = useState(false);
 	const [familiesOpen, setFamiliesOpen] = useState(false);
+	const { user, checking, signOut } = usePublicAuth();
 	const location = useLocation();
 	const pathname = location.pathname;
 	const currentPath = pathname.replace(/\/+$/, "") || "/";
@@ -192,6 +194,19 @@ const Navbar = () => {
 				<NavLink to="/media" className={navLinkClass} onClick={closeAll}>
 					Media
 				</NavLink>
+			</li>
+			<li>
+				{!checking && user ? (
+					<>
+						<NavLink to="/account" className={navLinkClass} onClick={closeAll}>
+							Account
+						</NavLink>
+					</>
+				) : (
+					<NavLink to="/login" className={navLinkClass} onClick={closeAll}>
+						Sign in
+					</NavLink>
+				)}
 			</li>
 		</ul>
 	);
@@ -360,6 +375,29 @@ const Navbar = () => {
 						<NavLink to="/media" className={navLinkClass} onClick={closeAll}>
 							Media
 						</NavLink>
+					</li>
+					<li className="mt-4">
+						{!checking && user ? (
+							<>
+								<NavLink to="/account" className={navLinkClass} onClick={closeAll}>
+									Account
+								</NavLink>
+								<button
+									type="button"
+									className="mt-2 text-sm text-lu-yellow"
+									onClick={() => {
+										signOut();
+										closeAll();
+									}}
+								>
+									Sign out ({user.name || user.email})
+								</button>
+							</>
+						) : (
+							<NavLink to="/login" className={navLinkClass} onClick={closeAll}>
+								Sign in
+							</NavLink>
+						)}
 					</li>
 				</ul>
 			</div>
